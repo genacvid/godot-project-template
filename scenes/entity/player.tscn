@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://dkajcrr1254sh"]
+
+[ext_resource type="Script" uid="uid://de05mnxjkq8ha" path="res://scripts/class/class_player.gd" id="1_gdab3"]
+[ext_resource type="Script" uid="uid://cakpjspg2drgx" path="res://scripts/class/component/q_move_component.gd" id="2_tgyl1"]
+[ext_resource type="Script" uid="uid://b0b6s4d5sruwa" path="res://scripts/class/class_hud.gd" id="3_qwm7e"]
+[ext_resource type="Script" uid="uid://ck25br38oyvpq" path="res://scripts/class/class_state_machine.gd" id="3_tgyl1"]
+[ext_resource type="Script" uid="uid://dxjirw1ernqaj" path="res://scripts/state/movement/movement_state_idle.gd" id="4_k4nkw"]
+[ext_resource type="Script" uid="uid://1sgbweejusa2" path="res://scripts/class/component/input_component.gd" id="4_poj5f"]
+[ext_resource type="Script" uid="uid://cwaoeaqv1m7gm" path="res://scripts/state/movement/movement_state_ground.gd" id="5_bee8u"]
+[ext_resource type="Script" uid="uid://k63xetoeertn" path="res://scripts/class/component/trace_component.gd" id="5_ksla3"]
+[ext_resource type="Script" uid="uid://dm8ndbqjyrtuv" path="res://scripts/class/component/attack_component.gd" id="6_7sfp8"]
+[ext_resource type="Script" uid="uid://6nq5isobplrx" path="res://scripts/state/movement/movement_state_jump.gd" id="6_ksla3"]
+[ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="7_lo118"]
+[ext_resource type="Script" uid="uid://bp6cdw3r0vndq" path="res://scripts/class/class_projectile_spawner.gd" id="7_qwm7e"]
+[ext_resource type="Script" uid="uid://dsoospj4hh1rx" path="res://scripts/class/component/damage_component.gd" id="7_r4rq5"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sfp8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qwm7e"]
+radius = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_poj5f"]
+size = Vector3(0.25, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ksla3"]
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r4rq5"]
+size = Vector3(0.26, 0.3, 0.36)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qwm7e"]
+size = Vector3(0.25, 1, 0.25)
+
+[node name="Player" type="CharacterBody3D" unique_id=111883241 node_paths=PackedStringArray("move", "attack", "damage", "input", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
+collision_layer = 2
+script = ExtResource("1_gdab3")
+move = NodePath("QMoveComponent")
+attack = NodePath("AttackComponent")
+damage = NodePath("DamageComponent")
+input = NodePath("InputComponent")
+trace = NodePath("TraceComponent")
+model_root = NodePath("MeshInstance3D")
+camera_root = NodePath("CameraRoot")
+collision = NodePath("Collision")
+state_machines = [NodePath("MovementStateMachine")]
+spawner = NodePath("MultiplayerSpawner")
+synchronizer = NodePath("MultiplayerSynchronizer")
+metadata/_custom_type_script = "uid://de05mnxjkq8ha"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1448770967]
+spawn_path = NodePath("..")
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="." unique_id=143082906]
+spawn_path = NodePath("../AttackComponent")
+script = ExtResource("7_qwm7e")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1903585481]
+replication_config = SubResource("SceneReplicationConfig_7sfp8")
+
+[node name="HUD" type="Control" parent="." unique_id=1635399331 node_paths=PackedStringArray("pause")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_qwm7e")
+pause = NodePath("Pause")
+metadata/_custom_type_script = "uid://b0b6s4d5sruwa"
+
+[node name="Pause" type="VBoxContainer" parent="HUD" unique_id=1972344394]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="HUD/Pause" unique_id=2037336398]
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="HUD/Pause" unique_id=2039403446]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="HUD/Pause" unique_id=1120126774]
+layout_mode = 2
+text = "Quit"
+
+[node name="CameraRoot" type="RemoteTransform3D" parent="." unique_id=1919924614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+remote_path = NodePath("../CameraPivot")
+
+[node name="CameraPivot" type="SpringArm3D" parent="." unique_id=993350120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("SphereShape3D_qwm7e")
+spring_length = 3.0
+
+[node name="Camera" type="Camera3D" parent="CameraPivot" unique_id=1995853305]
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1872269822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_poj5f")
+
+[node name="CrouchCast" type="ShapeCast3D" parent="." unique_id=37816842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_ksla3")
+target_position = Vector3(0, 0.25, 0)
+max_results = 4
+
+[node name="StaircastUp" type="ShapeCast3D" parent="." unique_id=564180617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_r4rq5")
+target_position = Vector3(0, 0, 0)
+max_results = 4
+
+[node name="StaircastDown" type="RayCast3D" parent="." unique_id=1348544854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+target_position = Vector3(0, -0.4, 0)
+
+[node name="QMoveComponent" type="Node" parent="." unique_id=323689375 node_paths=PackedStringArray("crouchcast", "staircast_up", "staircast_down")]
+script = ExtResource("2_tgyl1")
+max_ground_speed = 3.0
+max_air_speed = 1.0
+max_accel = 50.0
+max_air_accel = 50.0
+max_friction = 4.0
+jump_impulse = 4.5
+crouchcast = NodePath("../CrouchCast")
+staircast_up = NodePath("../StaircastUp")
+staircast_down = NodePath("../StaircastDown")
+metadata/_custom_type_script = "uid://cakpjspg2drgx"
+
+[node name="InputComponent" type="Node" parent="." unique_id=1881383040]
+script = ExtResource("4_poj5f")
+auto_jump = false
+metadata/_custom_type_script = "uid://1sgbweejusa2"
+
+[node name="TraceComponent" type="Node" parent="." unique_id=51023125]
+script = ExtResource("5_ksla3")
+metadata/_custom_type_script = "uid://k63xetoeertn"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=2128244568 node_paths=PackedStringArray("projectile_spawner")]
+script = ExtResource("6_7sfp8")
+projectile_spawner = NodePath("../ProjectileSpawner")
+metadata/_custom_type_script = "uid://dm8ndbqjyrtuv"
+
+[node name="DamageComponent" type="Node" parent="." unique_id=226954338]
+script = ExtResource("7_r4rq5")
+metadata/_custom_type_script = "uid://dsoospj4hh1rx"
+
+[node name="MovementStateMachine" type="Node" parent="." unique_id=761624887 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_tgyl1")
+initial_state = NodePath("MovementStateIdle")
+metadata/_custom_type_script = "uid://ck25br38oyvpq"
+
+[node name="MovementStateIdle" type="Node" parent="MovementStateMachine" unique_id=504843971]
+script = ExtResource("4_k4nkw")
+metadata/_custom_type_script = "uid://dxjirw1ernqaj"
+
+[node name="MovementStateGround" type="Node" parent="MovementStateMachine" unique_id=602029553]
+script = ExtResource("5_bee8u")
+metadata/_custom_type_script = "uid://cwaoeaqv1m7gm"
+
+[node name="MovementStateJump" type="Node" parent="MovementStateMachine" unique_id=2124220738]
+script = ExtResource("6_ksla3")
+metadata/_custom_type_script = "uid://6nq5isobplrx"
+
+[node name="MovementStateAir" type="Node" parent="MovementStateMachine" unique_id=765846002]
+script = ExtResource("7_lo118")
+metadata/_custom_type_script = "uid://mlyhdbma8nk5"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=501039149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_qwm7e")
+
+[connection signal="pressed" from="HUD/Pause/Resume" to="HUD" method="_on_resume_pressed"]
+[connection signal="pressed" from="HUD/Pause/Settings" to="HUD" method="_on_settings_pressed"]
+[connection signal="pressed" from="HUD/Pause/Quit" to="HUD" method="_on_quit_pressed"]

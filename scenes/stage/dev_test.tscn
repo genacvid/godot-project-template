@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b627x2fr1njid"]
+
+[ext_resource type="Script" uid="uid://dhk08q0p0k432" path="res://scripts/class/class_stage.gd" id="1_nvag3"]
+[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_nvag3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i8mec"]
+
+[sub_resource type="Sky" id="Sky_00qq7"]
+sky_material = SubResource("ProceduralSkyMaterial_i8mec")
+
+[sub_resource type="Environment" id="Environment_b87ot"]
+background_mode = 2
+sky = SubResource("Sky_00qq7")
+ambient_light_source = 3
+
+[sub_resource type="BoxMesh" id="BoxMesh_miia4"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rdjs"]
+albedo_texture = ExtResource("2_nvag3")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u5t8k"]
+size = Vector3(20, 1, 20)
+
+[node name="Stage" type="WorldEnvironment" unique_id=934495669]
+environment = SubResource("Environment_b87ot")
+script = ExtResource("1_nvag3")
+metadata/_custom_type_script = "uid://dhk08q0p0k432"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=222810847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_miia4")
+surface_material_override/0 = SubResource("StandardMaterial3D_6rdjs")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=699931243]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=654097682]
+shape = SubResource("BoxShape3D_u5t8k")

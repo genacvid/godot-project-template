@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://be2yhy21qasxt"]
+
+[ext_resource type="Script" uid="uid://dfdb2176j2a4e" path="res://scripts/class/class_session.gd" id="1_w20ur"]
+
+[node name="Session" type="Node" unique_id=980762485]
+script = ExtResource("1_w20ur")
+metadata/_custom_type_script = "uid://dfdb2176j2a4e"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=761486817]
+_spawnable_scenes = PackedStringArray("uid://dkajcrr1254sh", "uid://b627x2fr1njid")
+spawn_path = NodePath("..")

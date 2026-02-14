@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bhgymk1i35q2j"]
+
+[ext_resource type="Script" uid="uid://d0o5f87ududpq" path="res://scripts/system/globals/loader.gd" id="1_l07at"]
+
+[node name="Loader" type="Node" unique_id=858871469]
+process_mode = 3
+script = ExtResource("1_l07at")
+
+[node name="LoadingLayer" type="CanvasLayer" parent="." unique_id=1756145588]
+visible = false
+
+[node name="LoadingControl" type="Control" parent="LoadingLayer" unique_id=56642692]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="LoadingLayer/LoadingControl" unique_id=2142323999]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="LoadingLayer/LoadingControl" unique_id=834793749]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOADING"
+
+[node name="ProgressBar" type="ProgressBar" parent="LoadingLayer/LoadingControl" unique_id=705419948]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = 26.084991
+offset_right = 202.0
+offset_bottom = 53.08499
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false

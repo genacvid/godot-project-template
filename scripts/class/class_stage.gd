@@ -1,0 +1,2 @@
+extends WorldEnvironment
+class_name Stage

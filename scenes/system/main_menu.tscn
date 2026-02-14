@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://bnscqpwshjstt"]
+
+[ext_resource type="Script" uid="uid://8e7pshvav8hj" path="res://scripts/system/main_menu.gd" id="1_2k5mk"]
+[ext_resource type="Script" uid="uid://cu3c52ryebddp" path="res://scripts/system/session_browser_window.gd" id="2_pskw6"]
+[ext_resource type="Script" uid="uid://dqshfl1c6rldu" path="res://scenes/system/host_session_window.gd" id="3_80ia5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xqt6l"]
+font_size = 72
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pskw6"]
+bg_color = Color(0.38170326, 0.38170326, 0.3817031, 1)
+
+[node name="MainMenu" type="Control" unique_id=738793782]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2k5mk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=710336727]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=493109941]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Game Title"
+label_settings = SubResource("LabelSettings_xqt6l")
+
+[node name="StartSession" type="Button" parent="VBoxContainer" unique_id=1620795947]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Start Session"
+flat = true
+
+[node name="JoinSession" type="Button" parent="VBoxContainer" unique_id=2009432475]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Join Session"
+flat = true
+
+[node name="Settings" type="Button" parent="VBoxContainer" unique_id=747888050]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+flat = true
+
+[node name="QuitToDesktop" type="Button" parent="VBoxContainer" unique_id=1460767848]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Quit to Desktop"
+flat = true
+
+[node name="SessionBrowser" type="Window" parent="." unique_id=496561416]
+oversampling_override = 1.0
+title = "Session Browser"
+initial_position = 1
+size = Vector2i(600, 400)
+visible = false
+unresizable = true
+script = ExtResource("2_pskw6")
+
+[node name="TabContainer" type="TabContainer" parent="SessionBrowser" unique_id=1626551005]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_pskw6")
+tab_alignment = 1
+current_tab = 1
+
+[node name="Steam" type="Panel" parent="SessionBrowser/TabContainer" unique_id=548591167]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="SteamStatusLabel" type="Label" parent="SessionBrowser/TabContainer/Steam" unique_id=853043381]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 177.0
+offset_bottom = 23.0
+text = "Steam is not running. Cannot fetch sessions."
+
+[node name="LobbyContainer" type="VBoxContainer" parent="SessionBrowser/TabContainer/Steam" unique_id=1658548566]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Direct" type="Panel" parent="SessionBrowser/TabContainer" unique_id=1604514797]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SessionBrowser/TabContainer/Direct" unique_id=1264754058]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_right = 127.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="DirectIPAddress" type="LineEdit" parent="SessionBrowser/TabContainer/Direct/VBoxContainer" unique_id=410906396]
+unique_name_in_owner = true
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "IP Address"
+
+[node name="DirectJoinButton" type="Button" parent="SessionBrowser/TabContainer/Direct/VBoxContainer" unique_id=1861573304]
+layout_mode = 2
+text = "Connect"
+
+[node name="HostSession" type="Window" parent="." unique_id=658849185]
+oversampling_override = 1.0
+title = "Host Session"
+initial_position = 1
+size = Vector2i(350, 200)
+visible = false
+unresizable = true
+script = ExtResource("3_80ia5")
+
+[node name="Panel" type="Panel" parent="HostSession" unique_id=711870540]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HostSession/Panel" unique_id=1315796629]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SessionNameEdit" type="LineEdit" parent="HostSession/Panel/VBoxContainer" unique_id=114369556]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Session Name"
+
+[node name="MaxPlayersEdit" type="SpinBox" parent="HostSession/Panel/VBoxContainer" unique_id=512525829]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 32.0
+value = 2.0
+prefix = "Max Players:"
+
+[node name="StageEdit" type="MenuButton" parent="HostSession/Panel/VBoxContainer" unique_id=893947630]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Stage: dev_test"
+flat = false
+alignment = 0
+item_count = 1
+popup/item_0/text = "dev_test"
+popup/item_0/id = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HostSession/Panel/VBoxContainer" unique_id=1816835416]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="StartSessionEnet" type="Button" parent="HostSession/Panel/VBoxContainer/HBoxContainer" unique_id=1743134263]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Start Session (ENet)"
+
+[node name="StartSessionSteam" type="Button" parent="HostSession/Panel/VBoxContainer/HBoxContainer" unique_id=1646336453]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Start Session (Steam)"
+
+[connection signal="pressed" from="VBoxContainer/StartSession" to="." method="_on_start_session_pressed"]
+[connection signal="pressed" from="VBoxContainer/JoinSession" to="." method="_on_join_session_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="close_requested" from="SessionBrowser" to="SessionBrowser" method="_on_close_requested"]
+[connection signal="visibility_changed" from="SessionBrowser" to="SessionBrowser" method="_on_visibility_changed"]
+[connection signal="pressed" from="SessionBrowser/TabContainer/Direct/VBoxContainer/DirectJoinButton" to="SessionBrowser" method="_on_direct_join_button_pressed"]
+[connection signal="close_requested" from="HostSession" to="HostSession" method="_on_close_requested"]
+[connection signal="text_submitted" from="HostSession/Panel/VBoxContainer/SessionNameEdit" to="HostSession" method="_on_session_name_edit_text_submitted"]
+[connection signal="value_changed" from="HostSession/Panel/VBoxContainer/MaxPlayersEdit" to="HostSession" method="_on_max_players_edit_value_changed"]
+[connection signal="pressed" from="HostSession/Panel/VBoxContainer/StageEdit" to="HostSession" method="_on_stage_edit_pressed"]
+[connection signal="pressed" from="HostSession/Panel/VBoxContainer/HBoxContainer/StartSessionEnet" to="HostSession" method="_on_start_session_enet_pressed"]
+[connection signal="pressed" from="HostSession/Panel/VBoxContainer/HBoxContainer/StartSessionSteam" to="HostSession" method="_on_start_session_steam_pressed"]
