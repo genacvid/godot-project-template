@@ -12,3 +12,7 @@ func _ready() -> void:
 	Game.hud = hud
 	hud.show()
 	camera.current = true
+	for player_spawn:PlayerSpawn in get_tree().get_nodes_in_group("PlayerSpawn"):
+		if player_spawn.spawn_name == "default":
+			self.global_position = player_spawn.global_position
+			self.reset_physics_interpolation()

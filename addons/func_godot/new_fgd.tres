@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" format=3 uid="uid://grkvs41u5jlq"]
+
+[ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="1_4lcsf"]
+[ext_resource type="Script" uid="uid://drlmgulwbjwqu" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_w460x"]
+[ext_resource type="Resource" uid="uid://4o0aii46p50i" path="res://addons/func_godot/fgd/point_player.tres" id="2_qalja"]
+[ext_resource type="Resource" uid="uid://gu4wduqkruaa" path="res://addons/func_godot/fgd/point_player_spawn.tres" id="3_hs0ca"]
+
+[resource]
+script = ExtResource("1_w460x")
+fgd_name = "ProjectTemplate"
+base_fgd_files = Array[Resource]([ExtResource("1_4lcsf")])
+entity_definitions = Array[Resource]([ExtResource("2_qalja"), ExtResource("3_hs0ca")])
+metadata/_custom_type_script = "uid://drlmgulwbjwqu"

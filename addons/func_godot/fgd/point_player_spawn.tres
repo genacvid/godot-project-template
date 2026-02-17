@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" format=3 uid="uid://gu4wduqkruaa"]
+
+[ext_resource type="Script" uid="uid://d1nwwgcrner8b" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class_display_descriptor.gd" id="1_ygqtu"]
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="2_088lt"]
+[ext_resource type="PackedScene" uid="uid://ckbnct63jjabg" path="res://scenes/entity/player_spawn.tscn" id="2_stcsa"]
+[ext_resource type="Script" uid="uid://cqg2t11e1ek4b" path="res://scripts/entity/player_spawn.gd" id="4_xfa2u"]
+
+[resource]
+script = ExtResource("2_088lt")
+scene_file = ExtResource("2_stcsa")
+script_class = ExtResource("4_xfa2u")
+classname = "point_player_spawn"
+description = "Spawn point for players. Spawn behavior is defined in the player script."
+class_properties = Dictionary[String, Variant]({
+"spawn_name": "default"
+})
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"

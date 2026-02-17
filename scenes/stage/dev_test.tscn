@@ -1,7 +1,11 @@
-[gd_scene format=3 uid="uid://b627x2fr1njid"]
+[gd_scene format=4 uid="uid://b627x2fr1njid"]
 
 [ext_resource type="Script" uid="uid://dhk08q0p0k432" path="res://scripts/class/class_stage.gd" id="1_nvag3"]
-[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_nvag3"]
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_8wbvo"]
+[ext_resource type="Resource" uid="uid://c7hothuyj6cjp" path="res://addons/func_godot/new_map_settings.tres" id="3_q18ri"]
+[ext_resource type="Material" uid="uid://c8skjpyy7su81" path="res://resources/textures/dev/dark/texture_07.tres" id="4_h3175"]
+[ext_resource type="Material" uid="uid://1tgfrwpimkp2" path="res://resources/textures/dev/dark/texture_13.tres" id="5_y2y6f"]
+[ext_resource type="PackedScene" uid="uid://ckbnct63jjabg" path="res://scenes/entity/player_spawn.tscn" id="6_y3rs4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i8mec"]
 
@@ -13,27 +17,74 @@ background_mode = 2
 sky = SubResource("Sky_00qq7")
 ambient_light_source = 3
 
-[sub_resource type="BoxMesh" id="BoxMesh_miia4"]
-size = Vector3(20, 1, 20)
+[sub_resource type="ArrayMesh" id="ArrayMesh_8wbvo"]
+_surfaces = [{
+"aabb": AABB(-4, -1.5, -4, 8, 1e-05, 8),
+"attribute_data": PackedByteArray("AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAL8="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAACAAMA"),
+"material": ExtResource("4_h3175"),
+"name": "dev/dark/texture_07",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AACAwAAAwL8AAIBAAACAwAAAwL8AAIDAAACAQAAAwL8AAIDAAACAQAAAwL8AAIBA/3////9//7//f////3//v/9/////f/+//3////9//78=")
+}, {
+"aabb": AABB(-4, -1.5, -4, 8, 3, 8),
+"attribute_data": PackedByteArray("AABAQAAAAL8AAIC/AAAAvwAAgL8AAADAAABAQAAAAMAAAIC/AAAAwAAAQEAAAADAAABAQAAAAL8AAIC/AAAAvwAAgL8AAADAAABAQAAAAMAAAEBAAAAAvwAAgL8AAAC/AABAQAAAAL8AAIC/AAAAvwAAgL8AAADAAABAQAAAAMA="),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8A"),
+"material": ExtResource("5_y2y6f"),
+"name": "dev/dark/texture_13",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AACAQAAAwL8AAIDAAACAwAAAwL8AAIDAAACAwAAAwD8AAIDAAACAQAAAwD8AAIDAAACAQAAAwD8AAIBAAACAwAAAwD8AAIBAAACAwAAAwL8AAIBAAACAQAAAwL8AAIBAAACAwAAAwD8AAIBAAACAwAAAwD8AAIDAAACAwAAAwL8AAIDAAACAwAAAwL8AAIBAAACAQAAAwL8AAIBAAACAQAAAwL8AAIDAAACAQAAAwD8AAIDAAACAQAAAwD8AAIBA/3//fwAA/z//f/9/AAD/P/9//38AAP8//3//fwAA/z//////////P/////////8//////////z//////////P////3//f/8/////f/9//z////9//3//P////3//f/8/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//78=")
+}]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rdjs"]
-albedo_texture = ExtResource("2_nvag3")
-uv1_triplanar = true
+[sub_resource type="ArrayOccluder3D" id="ArrayOccluder3D_q18ri"]
+vertices = PackedVector3Array(-4, -1.5, 4, -4, -1.5, -4, 4, -1.5, -4, 4, -1.5, 4, 4, -1.5, -4, -4, -1.5, -4, -4, 1.5, -4, 4, 1.5, -4, 4, 1.5, 4, -4, 1.5, 4, -4, -1.5, 4, 4, -1.5, 4, -4, 1.5, 4, -4, 1.5, -4, -4, -1.5, -4, -4, -1.5, 4, 4, -1.5, 4, 4, -1.5, -4, 4, 1.5, -4, 4, 1.5, 4)
+indices = PackedInt32Array(0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15, 16, 17, 18, 16, 18, 19)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_u5t8k"]
-size = Vector3(20, 1, 20)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h3175"]
+data = PackedVector3Array(-4, -1.5, 4, -4, -1.5, -4, 4, -1.5, -4, -4, -1.5, 4, 4, -1.5, -4, 4, -1.5, 4, 4, -1.5, -4, -4, -1.5, -4, -4, 1.5, -4, 4, -1.5, -4, -4, 1.5, -4, 4, 1.5, -4, 4, 1.5, 4, -4, 1.5, 4, -4, -1.5, 4, 4, 1.5, 4, -4, -1.5, 4, 4, -1.5, 4, -4, 1.5, 4, -4, 1.5, -4, -4, -1.5, -4, -4, 1.5, 4, -4, -1.5, -4, -4, -1.5, 4, 4, -1.5, 4, 4, -1.5, -4, 4, 1.5, -4, 4, -1.5, 4, 4, 1.5, -4, 4, 1.5, 4, -4, 1.5, 4, 4, 1.5, 4, 4, 1.5, -4, -4, 1.5, 4, 4, 1.5, -4, -4, 1.5, -4)
 
 [node name="Stage" type="WorldEnvironment" unique_id=934495669]
 environment = SubResource("Environment_b87ot")
 script = ExtResource("1_nvag3")
 metadata/_custom_type_script = "uid://dhk08q0p0k432"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=222810847]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-mesh = SubResource("BoxMesh_miia4")
-surface_material_override/0 = SubResource("StandardMaterial3D_6rdjs")
+[node name="FuncGodotMap" type="Node3D" parent="." unique_id=1441857872]
+script = ExtResource("2_8wbvo")
+local_map_file = "uid://ct52q4dwoms8w"
+map_settings = ExtResource("3_q18ri")
+metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=699931243]
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=1078904403]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=654097682]
-shape = SubResource("BoxShape3D_u5t8k")
+[node name="entity_1_point_player_spawn" parent="FuncGodotMap" unique_id=701625984 groups=["PlayerSpawn"] instance=ExtResource("6_y3rs4")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.25, 0, 0)
+func_godot_properties = Dictionary[String, Variant]({
+"classname": "point_player_spawn",
+"origin": "0 -72 0",
+"spawn_name": "default"
+})
+
+[node name="entity_2_func_geo" type="StaticBody3D" parent="FuncGodotMap" unique_id=1350272433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+collision_mask = 0
+
+[node name="entity_2_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=169735090]
+mesh = SubResource("ArrayMesh_8wbvo")
+
+[node name="entity_2_occluder_instance" type="OccluderInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1040109661]
+occluder = SubResource("ArrayOccluder3D_q18ri")
+
+[node name="entity_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=91065966]
+shape = SubResource("ConcavePolygonShape3D_h3175")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1815871350]
+transform = Transform3D(0.91341054, -0.16218284, 0.37333357, -0.40703958, -0.36394376, 0.8377731, 0, -0.9171923, -0.3984449, 0, 2.6733208, 0)
+shadow_enabled = true
