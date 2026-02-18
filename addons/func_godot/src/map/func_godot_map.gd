@@ -149,10 +149,4 @@ func build() -> void:
 	if build_flags & BuildFlags.SHOW_PROFILE_INFO:
 		print("")
 		FuncGodotUtil.print_profile_info("Build complete", _SIGNATURE)
-	var visual_modifier := VisualModifierComponent.new()
-	visual_modifier.name = "MapVisualModifier"
-	self.add_child(visual_modifier,true)
-	visual_modifier.owner = get_tree().edited_scene_root
-	for mesh_instance in find_children("*_mesh_instance","MeshInstance3D",true):
-		visual_modifier.target_meshes.append(mesh_instance)
 	build_complete.emit()

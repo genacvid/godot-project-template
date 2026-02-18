@@ -63,7 +63,7 @@ local_map_file = "uid://ct52q4dwoms8w"
 map_settings = ExtResource("3_q18ri")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=1106619472]
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=1639487364]
 
 [node name="entity_1_point_player_spawn" parent="FuncGodotMap" unique_id=701625984 groups=["PlayerSpawn"] instance=ExtResource("6_y3rs4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.25, 0, 0)
@@ -73,23 +73,25 @@ func_godot_properties = Dictionary[String, Variant]({
 "spawn_name": "default"
 })
 
-[node name="entity_2_func_geo" type="StaticBody3D" parent="FuncGodotMap" unique_id=1825072938]
+[node name="entity_2_func_geo" type="StaticBody3D" parent="FuncGodotMap" unique_id=910451264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 collision_mask = 0
 
-[node name="entity_2_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1181282010]
+[node name="entity_2_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=282311812]
 mesh = SubResource("ArrayMesh_q18ri")
 
-[node name="entity_2_occluder_instance" type="OccluderInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=694293901]
+[node name="entity_2_occluder_instance" type="OccluderInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1084583220]
 occluder = SubResource("ArrayOccluder3D_h3175")
 
-[node name="entity_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1395638631]
+[node name="entity_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1353643319]
 shape = SubResource("ConcavePolygonShape3D_y2y6f")
 
-[node name="MapVisualModifier" type="Node" parent="FuncGodotMap" unique_id=1564335826 node_paths=PackedStringArray("target_meshes")]
+[node name="MapVisualModifier" type="Node" parent="FuncGodotMap" unique_id=791090611 node_paths=PackedStringArray("target_meshes")]
 script = ExtResource("7_q18ri")
 target_meshes = [NodePath("../entity_2_func_geo/entity_2_mesh_instance")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1815871350]
 transform = Transform3D(0.91341054, -0.16218284, 0.37333357, -0.40703958, -0.36394376, 0.8377731, 0, -0.9171923, -0.3984449, 0, 2.6733208, 0)
 shadow_enabled = true
+
+[connection signal="build_complete" from="FuncGodotMap" to="." method=""]
