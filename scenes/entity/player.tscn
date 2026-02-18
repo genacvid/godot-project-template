@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="7_lo118"]
 [ext_resource type="Script" uid="uid://bp6cdw3r0vndq" path="res://scripts/class/class_projectile_spawner.gd" id="7_qwm7e"]
 [ext_resource type="Script" uid="uid://dsoospj4hh1rx" path="res://scripts/class/component/damage_component.gd" id="7_r4rq5"]
+[ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="14_qwm7e"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sfp8"]
 properties/0/path = NodePath(".:position")
@@ -185,6 +186,11 @@ metadata/_custom_type_script = "uid://mlyhdbma8nk5"
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=501039149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_qwm7e")
+
+[node name="VisualModifierComponent" type="Node" parent="." unique_id=495745978 node_paths=PackedStringArray("target_meshes")]
+script = ExtResource("14_qwm7e")
+target_meshes = [NodePath("../MeshInstance3D")]
+metadata/_custom_type_script = "uid://dayegkentyhnc"
 
 [connection signal="pressed" from="HUD/Pause/Resume" to="HUD" method="_on_resume_pressed"]
 [connection signal="pressed" from="HUD/Pause/Settings" to="HUD" method="_on_settings_pressed"]

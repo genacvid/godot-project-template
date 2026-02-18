@@ -11,4 +11,3 @@ class_name EntityState
 @onready var persist:PersistComponent = entity.persist
 @onready var trace:TraceComponent = entity.trace
 @onready var sight:SightComponent = entity.sight
-@onready var visual_modifier:VisualModifierComponent = entity.visual_modifier

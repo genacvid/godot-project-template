@@ -12,7 +12,6 @@ class_name Entity
 @export var persist:PersistComponent
 @export var trace:TraceComponent
 @export var sight:SightComponent
-@export var visual_modifier:VisualModifierComponent
 
 @export_category("Node Paths")
 ## The root of the scene representing the model, typically an instanced glb

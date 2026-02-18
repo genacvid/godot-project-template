@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d1lc8w5pwac7s"]
+
+[ext_resource type="Shader" uid="uid://by5tlgvvyirc6" path="res://resources/shaders/psx_shader.gdshader" id="1_niqio"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_niqio")
+shader_parameter/billboard = false
+shader_parameter/filtered = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/vertex_snapping = true
+shader_parameter/affine_texture_mapping = true
+shader_parameter/add_fog = false
+shader_parameter/fog_color = Color(0.42, 0.42, 0.45, 1)
+shader_parameter/fog_start_end = Vector2(10, 100)
+shader_parameter/add_dynamic_vertex_lighting = true
+shader_parameter/light_direction = Vector3(-0.54, 1, 0.59)
+shader_parameter/light_intensity = 1.0
+shader_parameter/ambient_light = Color(0, 0, 0, 1)
+shader_parameter/add_dither = true
+shader_parameter/dither_spread = 1.0
+shader_parameter/dither_gamma = 1.0

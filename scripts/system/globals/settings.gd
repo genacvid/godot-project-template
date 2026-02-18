@@ -5,7 +5,17 @@ extends Node
 	&"fullscreen" : false,
 	&"borderless" : false,
 	&"fit_to_screen" : false,
+	&"texture_quality" : 1,
+	&"animation_quality" : 1,
+	&"model_quality" : 1,
 }
+
+## Enables the psx shader. Automatically applies the shader material
+## at runtime, and modifies it according to settings.
+## By default, this shader is not enabled, and will not load, regardless
+## of model_quality setting.
+@export var use_psx_shader:bool = false
+
 @export var audio_settings = {
 	&"master" : 1.0,
 	&"sfx" : 1.0,
@@ -17,7 +27,10 @@ extends Node
 @onready var window: Window = $Window
 
 var current_settings_file:ConfigFile = ConfigFile.new()
-
+signal video_settings_changed
+signal audio_settings_changed
+signal gameplay_settings_changed
+signal control_settings_changed
 func _ready() -> void:
 	restore_settings_file()
 @export var bindable_actions:Array[String]
@@ -64,15 +77,33 @@ func restore_settings_file() -> void:
 @onready var fullscreen: CheckButton = %Fullscreen
 @onready var borderless: CheckButton = %Borderless
 @onready var fit_to_screen: CheckButton = %FitToScreen
+@onready var animation_quality: MenuButton = %AnimationQuality
+@onready var texture_quality: MenuButton = %TextureQuality
 
 func _on_resolution_pressed() -> void:
 	resolution.get_popup().id_pressed.connect(func(id):
 		var resolution_item = resolution.get_popup().get_item_text(id)
 		var resolution_vector = Vector2i(int(resolution_item.rsplit("x")[0]),int(resolution_item.rsplit("x")[1]))
 		video_settings[&"resolution"] = resolution_vector
+		%Resolution.text = "Resolution: " + str(resolution_vector.x) + "x" + str(resolution_vector.y)
 		apply_video_settings()
 		)
-
+func _on_texture_quality_pressed() -> void:
+	texture_quality.get_popup().id_pressed.connect(func(id):
+		video_settings[&"texture_quality"] = id
+		match id:
+			0: texture_quality.text = "Low"
+			1: texture_quality.text = "High"
+		apply_video_settings()
+		)
+func _on_animation_quality_pressed() -> void:
+	animation_quality.get_popup().id_pressed.connect(func(id):
+		video_settings[&"animation_quality"] = id
+		match id:
+			0: texture_quality.text = "Low"
+			1: texture_quality.text = "High"
+		apply_video_settings()
+		)
 func apply_video_settings():
 	if video_settings[&"fullscreen"]:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -84,7 +115,7 @@ func apply_video_settings():
 	else:
 		get_tree().get_root().set_content_scale_stretch(Window.CONTENT_SCALE_STRETCH_INTEGER)
 	get_window().size = video_settings[&"resolution"]
-	
+	video_settings_changed.emit()
 func _on_window_close_requested() -> void:
 	write_settings_file()
 	window.hide()

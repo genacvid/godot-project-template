@@ -21,7 +21,6 @@ signal declare_step(step: String)
 
 func _init(settings: FuncGodotMapSettings) -> void:
 	map_settings = settings
-
 ## Attempts to retrieve a [Script] via class name, to allow for [GDScript] class instantiation.
 static func get_script_by_class_name(name_of_class: String) -> Script:
 	if ResourceLoader.exists(name_of_class, "Script"):
@@ -58,6 +57,7 @@ func generate_solid_entity_node(node: Node, node_name: String, data: _EntityData
 	
 	node.name = node_name
 	node_name = node_name.trim_suffix(definition.classname).trim_suffix("_")
+	
 	var properties: Dictionary[String, Variant] = data.properties
 	
 	# Mesh Instance generation
