@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://bx3wun0a3lntx"]
+
+[ext_resource type="Script" uid="uid://d4bkeq3eiorwk" path="res://scripts/class/class_entity.gd" id="1_jonaa"]
+[ext_resource type="Script" uid="uid://k63xetoeertn" path="res://scripts/class/component/trace_component.gd" id="3_hvw13"]
+[ext_resource type="Script" uid="uid://cp22lrvclwvxu" path="res://scripts/class/component/move_component.gd" id="4_fipab"]
+[ext_resource type="Script" uid="uid://mrfi3vw6rjjt" path="res://scripts/class/component/navigation_component.gd" id="5_dsgc7"]
+[ext_resource type="Script" uid="uid://dqfns43qo8xjv" path="res://scripts/state/behavior/behavior_state_wander.gd" id="6_fqrgd"]
+[ext_resource type="Script" uid="uid://ck25br38oyvpq" path="res://scripts/class/class_state_machine.gd" id="6_janft"]
+[ext_resource type="Script" uid="uid://dxjirw1ernqaj" path="res://scripts/state/movement/movement_state_idle.gd" id="7_qgf6t"]
+[ext_resource type="Script" uid="uid://cwaoeaqv1m7gm" path="res://scripts/state/movement/movement_state_ground.gd" id="8_88yew"]
+[ext_resource type="Script" uid="uid://6nq5isobplrx" path="res://scripts/state/movement/movement_state_jump.gd" id="9_vfcjy"]
+[ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="10_jmlf5"]
+[ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="11_epjjn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jonaa"]
+size = Vector3(0.25, 1, 0.25)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4dgmx"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1j7wa"]
+size = Vector3(0.25, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cldcj"]
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uv7nj"]
+size = Vector3(0.26, 0.3, 0.36)
+
+[node name="TestMob" type="CharacterBody3D" unique_id=419566217 node_paths=PackedStringArray("move", "navigation", "trace", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
+script = ExtResource("1_jonaa")
+move = NodePath("MoveComponent")
+navigation = NodePath("NavigationComponent")
+trace = NodePath("TraceComponent")
+camera_root = NodePath("CameraRoot")
+collision = NodePath("Collision")
+state_machines = [NodePath("MovementStateMachine")]
+spawner = NodePath("MultiplayerSpawner")
+synchronizer = NodePath("MultiplayerSynchronizer")
+metadata/_custom_type_script = "uid://d4bkeq3eiorwk"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=411399301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_jonaa")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1292971862]
+avoidance_enabled = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=2032515221]
+spawn_path = NodePath("..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1446432744]
+replication_config = SubResource("SceneReplicationConfig_4dgmx")
+
+[node name="CameraRoot" type="RemoteTransform3D" parent="." unique_id=485666770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=2015063863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_1j7wa")
+
+[node name="CrouchCast" type="ShapeCast3D" parent="." unique_id=1971499640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_cldcj")
+target_position = Vector3(0, 0.25, 0)
+max_results = 4
+
+[node name="StaircastUp" type="ShapeCast3D" parent="." unique_id=2010150826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_uv7nj")
+target_position = Vector3(0, 0, 0)
+max_results = 4
+
+[node name="StaircastDown" type="RayCast3D" parent="." unique_id=1566661689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+target_position = Vector3(0, -0.4, 0)
+
+[node name="TraceComponent" type="Node" parent="." unique_id=1083888059]
+script = ExtResource("3_hvw13")
+metadata/_custom_type_script = "uid://k63xetoeertn"
+
+[node name="MoveComponent" type="Node" parent="." unique_id=1792628352 node_paths=PackedStringArray("crouchcast", "staircast_up", "staircast_down")]
+script = ExtResource("4_fipab")
+max_ground_speed = 2.0
+max_friction = 3.0
+crouchcast = NodePath("../CrouchCast")
+staircast_up = NodePath("../StaircastUp")
+staircast_down = NodePath("../StaircastDown")
+metadata/_custom_type_script = "uid://cp22lrvclwvxu"
+
+[node name="NavigationComponent" type="Node" parent="." unique_id=57097886 node_paths=PackedStringArray("agent")]
+script = ExtResource("5_dsgc7")
+agent = NodePath("../NavigationAgent3D")
+metadata/_custom_type_script = "uid://mrfi3vw6rjjt"
+
+[node name="BehaviorStateMachine" type="Node" parent="." unique_id=2074475811 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_janft")
+initial_state = NodePath("BehaviorStateWander")
+metadata/_custom_type_script = "uid://ck25br38oyvpq"
+
+[node name="BehaviorStateWander" type="Node" parent="BehaviorStateMachine" unique_id=896787037]
+script = ExtResource("6_fqrgd")
+metadata/_custom_type_script = "uid://dqfns43qo8xjv"
+
+[node name="MovementStateMachine" type="Node" parent="." unique_id=619284631 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_janft")
+initial_state = NodePath("MovementStateIdle")
+metadata/_custom_type_script = "uid://ck25br38oyvpq"
+
+[node name="MovementStateIdle" type="Node" parent="MovementStateMachine" unique_id=509667204]
+script = ExtResource("7_qgf6t")
+metadata/_custom_type_script = "uid://dxjirw1ernqaj"
+
+[node name="MovementStateGround" type="Node" parent="MovementStateMachine" unique_id=440523282]
+script = ExtResource("8_88yew")
+metadata/_custom_type_script = "uid://cwaoeaqv1m7gm"
+
+[node name="MovementStateJump" type="Node" parent="MovementStateMachine" unique_id=45229628]
+script = ExtResource("9_vfcjy")
+metadata/_custom_type_script = "uid://6nq5isobplrx"
+
+[node name="MovementStateAir" type="Node" parent="MovementStateMachine" unique_id=244127515]
+script = ExtResource("10_jmlf5")
+metadata/_custom_type_script = "uid://mlyhdbma8nk5"
+
+[node name="VisualModifierComponent" type="Node" parent="." unique_id=1929713666 node_paths=PackedStringArray("target_meshes")]
+script = ExtResource("11_epjjn")
+target_meshes = [NodePath("../MeshInstance3D")]
+metadata/_custom_type_script = "uid://dayegkentyhnc"

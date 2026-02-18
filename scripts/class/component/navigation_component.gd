@@ -8,11 +8,13 @@ class_name NavigationComponent
 var distance_to_goal:float
 var target_entity:Entity
 @onready var home_position:Vector3 = entity.global_position
+func _ready() -> void:
+	agent.velocity_computed.connect(func(safe_velocity:Vector3):entity.velocity += safe_velocity)
 func update() -> void:
-	distance_to_goal = self.global_position.distance_to(agent.get_final_position())
+	distance_to_goal = entity.global_position.distance_to(agent.get_final_position())
 	var nav_command = Vector2(
-		agent.get_next_path_position().x - self.global_position.x,
-		agent.get_next_path_position().z - self.global_position.z)
+		agent.get_next_path_position().x - entity.global_position.x,
+		agent.get_next_path_position().z - entity.global_position.z)
 	if distance_to_goal > agent.target_desired_distance:
 		entity.move.wishdir = Vector3(nav_command.x,0,nav_command.y).normalized()
 	else: entity.move.wishdir = Vector3.ZERO

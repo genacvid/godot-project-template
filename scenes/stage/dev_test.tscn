@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://1tgfrwpimkp2" path="res://resources/textures/dev/dark/texture_13.tres" id="5_y2y6f"]
 [ext_resource type="PackedScene" uid="uid://ckbnct63jjabg" path="res://scenes/entity/player_spawn.tscn" id="6_y3rs4"]
 [ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="7_q18ri"]
+[ext_resource type="PackedScene" uid="uid://bx3wun0a3lntx" path="res://scenes/entity/test_mob.tscn" id="8_h3175"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i8mec"]
 
@@ -52,18 +53,35 @@ indices = PackedInt32Array(0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y2y6f"]
 data = PackedVector3Array(-4, -1.5, 4, -4, -1.5, -4, 4, -1.5, -4, -4, -1.5, 4, 4, -1.5, -4, 4, -1.5, 4, 4, -1.5, -4, -4, -1.5, -4, -4, 1.5, -4, 4, -1.5, -4, -4, 1.5, -4, 4, 1.5, -4, 4, 1.5, 4, -4, 1.5, 4, -4, -1.5, 4, 4, 1.5, 4, -4, -1.5, 4, 4, -1.5, 4, -4, 1.5, 4, -4, 1.5, -4, -4, -1.5, -4, -4, 1.5, 4, -4, -1.5, -4, -4, -1.5, 4, 4, -1.5, 4, 4, -1.5, -4, 4, 1.5, -4, 4, -1.5, 4, 4, 1.5, -4, 4, 1.5, 4, -4, 1.5, 4, 4, 1.5, 4, 4, 1.5, -4, -4, 1.5, 4, 4, 1.5, -4, -4, 1.5, -4)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_y3rs4"]
+vertices = PackedVector3Array(-3.25, 0.5, -3.25, -3.25, 0.5, 3.25, 3.5, 0.5, 3.25, 3.5, 0.5, -3.25)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_source_geometry_mode = 1
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_tb5n5"]
+vertices = PackedVector3Array(-3, 0.5, -3, -3, 0.5, 3, 3.5, 0.5, 3, 3.5, 0.5, -3)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_source_geometry_mode = 1
+cell_size = 0.5
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_u5cm3"]
+vertices = PackedVector3Array(-2, 0.5, -2, -2, 0.5, 2, 3, 0.5, 2, 3, 0.5, -2)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_source_geometry_mode = 1
+cell_size = 1.0
+
 [node name="Stage" type="WorldEnvironment" unique_id=934495669]
 environment = SubResource("Environment_b87ot")
 script = ExtResource("1_nvag3")
 metadata/_custom_type_script = "uid://dhk08q0p0k432"
 
-[node name="FuncGodotMap" type="Node3D" parent="." unique_id=1441857872]
+[node name="FuncGodotMap" type="Node3D" parent="." unique_id=1441857872 groups=["navigation_mesh_source_group"]]
 script = ExtResource("2_8wbvo")
 local_map_file = "uid://ct52q4dwoms8w"
 map_settings = ExtResource("3_q18ri")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=1639487364]
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=125898688]
 
 [node name="entity_1_point_player_spawn" parent="FuncGodotMap" unique_id=701625984 groups=["PlayerSpawn"] instance=ExtResource("6_y3rs4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.25, 0, 0)
@@ -73,25 +91,37 @@ func_godot_properties = Dictionary[String, Variant]({
 "spawn_name": "default"
 })
 
-[node name="entity_2_func_geo" type="StaticBody3D" parent="FuncGodotMap" unique_id=910451264]
+[node name="entity_2_func_geo" type="StaticBody3D" parent="FuncGodotMap" unique_id=308612083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 collision_mask = 0
 
-[node name="entity_2_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=282311812]
+[node name="entity_2_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=823274423]
 mesh = SubResource("ArrayMesh_q18ri")
 
-[node name="entity_2_occluder_instance" type="OccluderInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1084583220]
+[node name="entity_2_occluder_instance" type="OccluderInstance3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=8559475]
 occluder = SubResource("ArrayOccluder3D_h3175")
 
-[node name="entity_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1353643319]
+[node name="entity_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_2_func_geo" unique_id=1473719077]
 shape = SubResource("ConcavePolygonShape3D_y2y6f")
 
-[node name="MapVisualModifier" type="Node" parent="FuncGodotMap" unique_id=791090611 node_paths=PackedStringArray("target_meshes")]
+[node name="MapVisualModifier" type="Node" parent="FuncGodotMap" unique_id=864771207 node_paths=PackedStringArray("target_meshes")]
 script = ExtResource("7_q18ri")
 target_meshes = [NodePath("../entity_2_func_geo/entity_2_mesh_instance")]
+
+[node name="SmallNavigationRegion" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=770537358]
+navigation_mesh = SubResource("NavigationMesh_y3rs4")
+
+[node name="MediumNavigationRegion" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=1634290388]
+navigation_mesh = SubResource("NavigationMesh_tb5n5")
+
+[node name="LargeNavigationRegion" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=987392453]
+navigation_mesh = SubResource("NavigationMesh_u5cm3")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1815871350]
 transform = Transform3D(0.91341054, -0.16218284, 0.37333357, -0.40703958, -0.36394376, 0.8377731, 0, -0.9171923, -0.3984449, 0, 2.6733208, 0)
 shadow_enabled = true
+
+[node name="TestMob" parent="." unique_id=419566217 instance=ExtResource("8_h3175")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8713307, 0, -1.7986735)
 
 [connection signal="build_complete" from="FuncGodotMap" to="." method=""]
