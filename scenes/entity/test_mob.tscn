@@ -47,6 +47,8 @@ mesh = SubResource("BoxMesh_jonaa")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1292971862]
 avoidance_enabled = true
+radius = 0.25
+max_speed = 2.0
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=2032515221]
 spawn_path = NodePath("..")

@@ -20,6 +20,7 @@ func _ready() -> void:
 			if not layer_name.is_empty():
 				## create nav region nodes
 				var navigation_region := NavigationRegion3D.new()
+				navigation_region.set_navigation_layer_value(1,false)
 				map_ref.add_child(navigation_region)
 				navigation_region.owner = get_tree().edited_scene_root
 				navigation_region.name = layer_name + "NavigationRegion"
@@ -32,8 +33,10 @@ func _ready() -> void:
 				if layer_name.contains("Small"): agent_size = ProjectSettings.get("global/small_agent_size")
 				elif layer_name.contains("Medium"): agent_size = ProjectSettings.get("global/medium_agent_size")
 				elif layer_name.contains("Large"): agent_size = ProjectSettings.get("global/large_agent_size")
-				navigation_mesh.cell_size = agent_size
-				
+				navigation_mesh.agent_radius = agent_size
+				navigation_region.set_navigation_layer_value(layer_idx,true)
+				navigation_mesh.cell_height = 0.1
+				navigation_mesh.agent_height = 1.0
 				## bake nav mesh
 				navigation_region.bake_navigation_mesh()
 		,CONNECT_PERSIST)

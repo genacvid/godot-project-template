@@ -9,7 +9,6 @@ func update(_delta: float) -> void: ## Called by the state machine on the engine
 
 func fixed_update(_delta: float) -> void: ## Called by the state machine on the engine's physics update tick.
 	move.update(_delta)
-
 	if move.wishdir: transition.emit(GROUND)
 	if move.wishjump: transition.emit(JUMP)
 	if not entity.is_on_floor(): transition.emit(AIR)

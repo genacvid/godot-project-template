@@ -75,7 +75,10 @@ func move_air(
 
 func update(delta:float):
 	if not is_multiplayer_authority(): return
-	crouch(wishcrouch)
+	if not crouchcast.is_colliding():
+		crouch(wishcrouch)
+	if entity.is_on_ceiling():
+		vertical_velocity = 0.0
 	if entity.is_on_floor():
 		stairsolve_up(delta)
 		move_ground(entity.velocity,delta)

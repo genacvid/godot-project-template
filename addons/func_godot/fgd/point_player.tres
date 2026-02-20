@@ -11,6 +11,7 @@ scene_file = ExtResource("2_tbrbr")
 script_class = ExtResource("4_bfse7")
 classname = "point_player"
 description = "A spawn point for a player. Only one player entity should exist per map file."
+auto_apply_to_matching_node_properties = true
 meta_properties = Dictionary[String, Variant]({
 "color": Color(0.23742619, 0.8, 0, 1),
 "size": AABB(-4, -4, 0, 4, 4, 16)

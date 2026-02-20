@@ -5,6 +5,7 @@
 
 [node name="Settings" type="Node" unique_id=83362919]
 script = ExtResource("1_36o1u")
+use_psx_shader = true
 bindable_actions = Array[String](["move_forwards", "move_backwards", "move_left", "move_right", "jump", "crouch", "run"])
 
 [node name="Window" type="Window" parent="." unique_id=350983042]

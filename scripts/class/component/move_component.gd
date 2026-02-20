@@ -44,7 +44,10 @@ const HORIZONTAL_VECTOR = Vector3(1,0,1)
 
 func _ready() -> void:
 	entity_crouching_size.y /= 2
-
+## Overridable movement update method.
+## This function should always call move_and_slide (or move_and_collide)
+## after modifying the entity's velocity. a crouch() check can optionally
+## be made here. stair checks can occur in the state machines.
 func update(delta:float):
 	if not is_multiplayer_authority(): return
 	var h_vel = Vector3(entity.velocity.x,0,entity.velocity.z)
@@ -71,7 +74,6 @@ func jump(): vertical_velocity += jump_impulse
 
 ## TODO: This expects the entity collision to be a box, refactor to support capsules and cylinders
 func crouch(toggle:bool):
-	if crouchcast.is_colliding(): toggle = false
 	entity.collision.shape.size = entity_crouching_size if toggle else entity_standing_size
 	entity.collision.position = entity_crouching_pos if toggle else entity_standing_pos
 	entity.camera_root.position.y = camera_root_crouching_pos if toggle else camera_root_standing_pos
@@ -84,7 +86,7 @@ func stairsolve_up(delta):
 		var step_height = ((clearance.origin + collision_result.get_travel() - entity.global_position)).y
 		if step_height > MAX_STEP_HEIGHT or step_height <= MAX_STEP_MARGIN or (collision_result.get_position(0) - entity.global_position).y > MAX_STEP_HEIGHT:
 			return false
-		if entity.staircast_up.is_colliding():
+		if staircast_up.is_colliding():
 			entity.global_position = clearance.origin + collision_result.get_travel()
 			entity.apply_floor_snap()
 			return true

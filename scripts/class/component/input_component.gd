@@ -3,7 +3,7 @@ extends Component
 ## Processes player input, allowing player to affect components and states
 class_name InputComponent
 var localdir:Vector3
-var camera_rotation:Vector2
+@export var camera_rotation:Vector2
 ## When enabled, holding jump will automatically jump when we hit the ground
 @export var auto_jump:bool = true
 const MAX_PITCH:float = deg_to_rad(90)
