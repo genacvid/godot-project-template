@@ -131,6 +131,10 @@ max_results = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 target_position = Vector3(0, -0.4, 0)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=501039149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_qwm7e")
+
 [node name="QMoveComponent" type="Node" parent="." unique_id=323689375 node_paths=PackedStringArray("crouchcast", "staircast_up", "staircast_down")]
 script = ExtResource("2_tgyl1")
 max_ground_speed = 3.0
@@ -182,10 +186,6 @@ metadata/_custom_type_script = "uid://6nq5isobplrx"
 [node name="MovementStateAir" type="Node" parent="MovementStateMachine" unique_id=765846002]
 script = ExtResource("7_lo118")
 metadata/_custom_type_script = "uid://mlyhdbma8nk5"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=501039149]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_qwm7e")
 
 [node name="VisualModifierComponent" type="Node" parent="." unique_id=495745978 node_paths=PackedStringArray("target_meshes")]
 script = ExtResource("14_qwm7e")
