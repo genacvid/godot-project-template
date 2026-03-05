@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b5fwc6dhhsuc8"]
+
+[ext_resource type="Script" uid="uid://dbxh78ru0g6jc" path="res://scripts/class/class_weapon.gd" id="1_qfsxl"]
+[ext_resource type="Script" uid="uid://dt6x5oequfdm2" path="res://scripts/class/class_attackdata.gd" id="2_h5eph"]
+
+[sub_resource type="Resource" id="Resource_yc3tb"]
+script = ExtResource("2_h5eph")
+firerate = 800.0
+firemode = 2
+metadata/_custom_type_script = "uid://dt6x5oequfdm2"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yc3tb"]
+albedo_color = Color(1, 0.27160442, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_66j8d"]
+material = SubResource("StandardMaterial3D_yc3tb")
+radius = 0.09
+height = 0.475
+radial_segments = 16
+rings = 4
+
+[node name="Weapon" type="CharacterBody3D" unique_id=111287222 node_paths=PackedStringArray("muzzle")]
+script = ExtResource("1_qfsxl")
+attack_data = SubResource("Resource_yc3tb")
+muzzle = NodePath("ModelRoot/Marker3D")
+metadata/_custom_type_script = "uid://dbxh78ru0g6jc"
+
+[node name="ModelRoot" type="Node3D" parent="." unique_id=900061537]
+
+[node name="Marker3D" type="Marker3D" parent="ModelRoot" unique_id=1613417682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4512137)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ModelRoot" unique_id=1877390931]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.21212482)
+mesh = SubResource("CapsuleMesh_66j8d")

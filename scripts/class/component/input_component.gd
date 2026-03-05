@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed(&"menu"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		Game.hud.pause.show()
-	
+	entity.model_root.rotation.y = entity.camera_root.rotation.y
 	## get localized direction inputs
 	localdir = Vector3(
 		Input.get_action_strength(&"move_right") - Input.get_action_strength(&"move_left"), 0,
@@ -46,3 +46,19 @@ func _physics_process(delta: float) -> void:
 	entity.move.wishcrouch = Input.is_action_pressed(&"crouch")
 	entity.move.wishrun = Input.is_action_just_pressed(&"run")
 	entity.attack.wishattack = Input.is_action_pressed("attack")
+
+	## set inventory states
+	if Input.is_action_just_pressed("switch_slot_1"): entity.inventory.switch_slot(1)
+	if Input.is_action_just_pressed("switch_slot_2"): entity.inventory.switch_slot(2)
+	if Input.is_action_just_pressed("switch_slot_3"): entity.inventory.switch_slot(3)
+	if Input.is_action_just_pressed("switch_slot_4"): entity.inventory.switch_slot(4)
+	if Input.is_action_just_pressed("switch_slot_5"): entity.inventory.switch_slot(5)
+
+	## set aim pos based on screenspace center
+	if entity is Player:
+		var mouse_pos:Vector2 = get_window().get_mouse_position()
+		var from = entity.camera.project_ray_origin(mouse_pos)
+		var to = entity.camera.project_position(mouse_pos,entity.camera.far)
+		var pos = entity.trace.ray_pos(from,to,TraceComponent.MASK.GEO)
+		entity.attack.aim_pos = pos
+		Debug.sphere(pos)

@@ -8,6 +8,7 @@ class_name Entity
 @export var damage:DamageComponent
 @export var navigation:NavigationComponent
 @export var interact:InteractComponent
+@export var inventory:InventoryComponent
 @export var input:InputComponent
 @export var persist:PersistComponent
 @export var trace:TraceComponent

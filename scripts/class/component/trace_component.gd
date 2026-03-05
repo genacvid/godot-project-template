@@ -18,7 +18,7 @@ func get_exclusion() -> Array:
 
 func raycast(from:Vector3,to:Vector3,mask:int) -> Dictionary:
 	var space_state = entity.get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(from,to,mask)
+	var query = PhysicsRayQueryParameters3D.create(from,to)
 	query.exclude = get_exclusion()
 	var result = space_state.intersect_ray(query)
 	return result

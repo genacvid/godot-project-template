@@ -1,18 +1,20 @@
 [gd_scene format=3 uid="uid://dkajcrr1254sh"]
 
 [ext_resource type="Script" uid="uid://de05mnxjkq8ha" path="res://scripts/class/class_player.gd" id="1_gdab3"]
+[ext_resource type="Script" uid="uid://bp6cdw3r0vndq" path="res://scripts/class/class_projectile_spawner.gd" id="2_mrcak"]
 [ext_resource type="Script" uid="uid://cakpjspg2drgx" path="res://scripts/class/component/q_move_component.gd" id="2_tgyl1"]
 [ext_resource type="Script" uid="uid://b0b6s4d5sruwa" path="res://scripts/class/class_hud.gd" id="3_qwm7e"]
 [ext_resource type="Script" uid="uid://ck25br38oyvpq" path="res://scripts/class/class_state_machine.gd" id="3_tgyl1"]
+[ext_resource type="PackedScene" uid="uid://ocj3b8kce36s" path="res://resources/models/test_character/test_character.blend" id="4_2ucpq"]
 [ext_resource type="Script" uid="uid://dxjirw1ernqaj" path="res://scripts/state/movement/movement_state_idle.gd" id="4_k4nkw"]
 [ext_resource type="Script" uid="uid://1sgbweejusa2" path="res://scripts/class/component/input_component.gd" id="4_poj5f"]
 [ext_resource type="Script" uid="uid://cwaoeaqv1m7gm" path="res://scripts/state/movement/movement_state_ground.gd" id="5_bee8u"]
 [ext_resource type="Script" uid="uid://k63xetoeertn" path="res://scripts/class/component/trace_component.gd" id="5_ksla3"]
-[ext_resource type="Script" uid="uid://dm8ndbqjyrtuv" path="res://scripts/class/component/attack_component.gd" id="6_7sfp8"]
 [ext_resource type="Script" uid="uid://6nq5isobplrx" path="res://scripts/state/movement/movement_state_jump.gd" id="6_ksla3"]
+[ext_resource type="Script" uid="uid://dm8ndbqjyrtuv" path="res://scripts/class/component/attack_component.gd" id="7_2ucpq"]
 [ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="7_lo118"]
-[ext_resource type="Script" uid="uid://bp6cdw3r0vndq" path="res://scripts/class/class_projectile_spawner.gd" id="7_qwm7e"]
 [ext_resource type="Script" uid="uid://dsoospj4hh1rx" path="res://scripts/class/component/damage_component.gd" id="7_r4rq5"]
+[ext_resource type="Script" uid="uid://div36l2hagrks" path="res://scripts/class/component/inventory_component.gd" id="11_vt2c5"]
 [ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="14_qwm7e"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sfp8"]
@@ -30,20 +32,21 @@ size = Vector3(0.25, 1, 0.25)
 size = Vector3(0.25, 0.5, 0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r4rq5"]
-size = Vector3(0.26, 0.3, 0.36)
+size = Vector3(0.26, 0.3, 0.26)
 
-[sub_resource type="BoxMesh" id="BoxMesh_qwm7e"]
-size = Vector3(0.25, 1, 0.25)
+[sub_resource type="BoxShape3D" id="BoxShape3D_vt2c5"]
+size = Vector3(0.27, 1.07, 0.27)
 
-[node name="Player" type="CharacterBody3D" unique_id=111883241 node_paths=PackedStringArray("move", "attack", "damage", "input", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
+[node name="Player" type="CharacterBody3D" unique_id=111883241 node_paths=PackedStringArray("move", "attack", "damage", "inventory", "input", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
 collision_layer = 2
 script = ExtResource("1_gdab3")
 move = NodePath("QMoveComponent")
 attack = NodePath("AttackComponent")
 damage = NodePath("DamageComponent")
+inventory = NodePath("InventoryComponent")
 input = NodePath("InputComponent")
 trace = NodePath("TraceComponent")
-model_root = NodePath("MeshInstance3D")
+model_root = NodePath("test_character")
 camera_root = NodePath("CameraRoot")
 collision = NodePath("Collision")
 state_machines = [NodePath("MovementStateMachine")]
@@ -51,12 +54,12 @@ spawner = NodePath("MultiplayerSpawner")
 synchronizer = NodePath("MultiplayerSynchronizer")
 metadata/_custom_type_script = "uid://de05mnxjkq8ha"
 
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="." unique_id=557464980]
+spawn_path = NodePath("..")
+script = ExtResource("2_mrcak")
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1448770967]
 spawn_path = NodePath("..")
-
-[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="." unique_id=143082906]
-spawn_path = NodePath("../AttackComponent")
-script = ExtResource("7_qwm7e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1903585481]
 replication_config = SubResource("SceneReplicationConfig_7sfp8")
@@ -114,6 +117,7 @@ spring_length = 3.0
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1872269822]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_poj5f")
+debug_color = Color(0, 0.20850754, 1, 1)
 
 [node name="CrouchCast" type="ShapeCast3D" parent="." unique_id=37816842]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -131,9 +135,23 @@ max_results = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 target_position = Vector3(0, -0.4, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=501039149]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_qwm7e")
+[node name="test_character" parent="." unique_id=265886550 instance=ExtResource("4_2ucpq")]
+
+[node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="test_character/Armature/Skeleton3D" parent_id_path=PackedInt32Array(265886550, 203218618) index="1" unique_id=1487735855]
+
+[node name="PhysicalBone3D" type="PhysicalBone3D" parent="test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1690136642]
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0.5, 0)
+collision_layer = 2
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+body_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+bone_name = "Bone"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D/PhysicalBone3D" unique_id=1942578487]
+shape = SubResource("BoxShape3D_vt2c5")
+debug_color = Color(0.7019608, 0, 0.015686275, 1)
+
+[node name="WeaponTransform" type="RemoteTransform3D" parent="test_character" unique_id=1082835231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27069333, 0.5683139, 0)
 
 [node name="QMoveComponent" type="Node" parent="." unique_id=323689375 node_paths=PackedStringArray("crouchcast", "staircast_up", "staircast_down")]
 script = ExtResource("2_tgyl1")
@@ -153,18 +171,37 @@ script = ExtResource("4_poj5f")
 auto_jump = false
 metadata/_custom_type_script = "uid://1sgbweejusa2"
 
+[node name="AttackComponent" type="Node" parent="." unique_id=1054848107 node_paths=PackedStringArray("attack_origin", "projectile_spawner")]
+script = ExtResource("7_2ucpq")
+attack_origin = NodePath("../CameraPivot/Camera")
+projectile_spawner = NodePath("../ProjectileSpawner")
+metadata/_custom_type_script = "uid://dm8ndbqjyrtuv"
+
 [node name="TraceComponent" type="Node" parent="." unique_id=51023125]
 script = ExtResource("5_ksla3")
 metadata/_custom_type_script = "uid://k63xetoeertn"
 
-[node name="AttackComponent" type="Node" parent="." unique_id=2128244568 node_paths=PackedStringArray("projectile_spawner")]
-script = ExtResource("6_7sfp8")
-projectile_spawner = NodePath("../ProjectileSpawner")
-metadata/_custom_type_script = "uid://dm8ndbqjyrtuv"
-
-[node name="DamageComponent" type="Node" parent="." unique_id=226954338]
+[node name="DamageComponent" type="Node" parent="." unique_id=226954338 node_paths=PackedStringArray("hitbox_root")]
 script = ExtResource("7_r4rq5")
+hitbox_root = NodePath("../test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D")
 metadata/_custom_type_script = "uid://dsoospj4hh1rx"
+
+[node name="InventoryComponent" type="Node" parent="." unique_id=1520205180 node_paths=PackedStringArray("weapon_transform")]
+script = ExtResource("11_vt2c5")
+weapon_transform = NodePath("../test_character/WeaponTransform")
+metadata/_custom_type_script = "uid://div36l2hagrks"
+
+[node name="Slot0" type="Node" parent="InventoryComponent" unique_id=2028439698]
+
+[node name="Slot1" type="Node" parent="InventoryComponent" unique_id=289081338]
+
+[node name="Slot2" type="Node" parent="InventoryComponent" unique_id=2121937281]
+
+[node name="Slot3" type="Node" parent="InventoryComponent" unique_id=2144442099]
+
+[node name="Slot4" type="Node" parent="InventoryComponent" unique_id=57954718]
+
+[node name="Slot5" type="Node" parent="InventoryComponent" unique_id=1351287282]
 
 [node name="MovementStateMachine" type="Node" parent="." unique_id=761624887 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_tgyl1")
@@ -189,9 +226,12 @@ metadata/_custom_type_script = "uid://mlyhdbma8nk5"
 
 [node name="VisualModifierComponent" type="Node" parent="." unique_id=495745978 node_paths=PackedStringArray("target_meshes")]
 script = ExtResource("14_qwm7e")
-target_meshes = [NodePath("../MeshInstance3D")]
+target_meshes = [null]
 metadata/_custom_type_script = "uid://dayegkentyhnc"
 
 [connection signal="pressed" from="HUD/Pause/Resume" to="HUD" method="_on_resume_pressed"]
 [connection signal="pressed" from="HUD/Pause/Settings" to="HUD" method="_on_settings_pressed"]
 [connection signal="pressed" from="HUD/Pause/Quit" to="HUD" method="_on_quit_pressed"]
+[connection signal="attacked" from="AttackComponent" to="AttackComponent" method="_on_attacked"]
+
+[editable path="test_character"]

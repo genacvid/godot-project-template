@@ -20,7 +20,7 @@ func say(key:String,value):
 	if value is float: value = snapped(value,DEBUG_VALUE_SNAP_FLOAT)
 	DebugDraw2D.set_text(key,value,0,Color.WHITE,-1.0)
 
-func line(from:Vector3,to:Vector3): DebugDraw3D.draw_line(from,to)
+func line(from:Vector3,to:Vector3,color:Color=Color.RED,duration:float=0.0): DebugDraw3D.draw_line(from,to,color,duration)
 
 const DEFAULT_BOX_SIZE = Vector3(0.1,0.1,0.1)
 func box(to:Vector3,duration:float = 0.0, size:Vector3 = DEFAULT_BOX_SIZE,color:Color=Color.RED):
