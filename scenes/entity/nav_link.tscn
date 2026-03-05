@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dt7xp4xeg42c"]
+
+[ext_resource type="Script" uid="uid://b63d4n522oyje" path="res://scripts/fgd/nav_link_hint.gd" id="1_hid07"]
+
+[node name="NavLink" type="NavigationLink3D" unique_id=163044168]
+navigation_layers = 7
+script = ExtResource("1_hid07")

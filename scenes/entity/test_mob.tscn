@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cwaoeaqv1m7gm" path="res://scripts/state/movement/movement_state_ground.gd" id="8_88yew"]
 [ext_resource type="Script" uid="uid://6nq5isobplrx" path="res://scripts/state/movement/movement_state_jump.gd" id="9_vfcjy"]
 [ext_resource type="Script" uid="uid://cfuucotpp8r01" path="res://scripts/state/behavior/behavior_state_dead.gd" id="10_dsgc7"]
+[ext_resource type="Script" uid="uid://c1xcoa4kjj3wv" path="res://scripts/state/behavior/behavior_state_chase.gd" id="10_janft"]
 [ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="10_jmlf5"]
 [ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="11_epjjn"]
 
@@ -127,6 +128,7 @@ metadata/_custom_type_script = "uid://mrfi3vw6rjjt"
 
 [node name="DamageComponent" type="Node" parent="." unique_id=1348744228 node_paths=PackedStringArray("hitbox_root", "behavior_state_machine")]
 script = ExtResource("5_hvw13")
+team = 1
 hitbox_root = NodePath("../test_character/Armature/Skeleton3D/Hitboxes")
 behavior_state_machine = NodePath("../BehaviorStateMachine")
 metadata/_custom_type_script = "uid://dsoospj4hh1rx"
@@ -144,6 +146,10 @@ metadata/_custom_type_script = "uid://ck25br38oyvpq"
 [node name="BehaviorStateWander" type="Node" parent="BehaviorStateMachine" unique_id=896787037]
 script = ExtResource("6_fqrgd")
 metadata/_custom_type_script = "uid://dqfns43qo8xjv"
+
+[node name="BehaviorStateChase" type="Node" parent="BehaviorStateMachine" unique_id=1186172610]
+script = ExtResource("10_janft")
+metadata/_custom_type_script = "uid://c1xcoa4kjj3wv"
 
 [node name="BehaviorStateDead" type="Node" parent="BehaviorStateMachine" unique_id=833215297]
 script = ExtResource("10_dsgc7")

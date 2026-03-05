@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" format=3 uid="uid://crbq3pcx6pnnw"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_47bdu"]
+[ext_resource type="Script" uid="uid://blpjewwset5do" path="res://scripts/fgd/func_mover.gd" id="2_buugi"]
+
+[resource]
+script = ExtResource("1_47bdu")
+collision_mask = 3
+collision_priority = 0.5
+add_textures_metadata = true
+script_class = ExtResource("2_buugi")
+classname = "func_mover"
+description = "Moving physics body."
+class_properties = Dictionary[String, Variant]({
+"delay": 0.0,
+"direction": Vector3(0, 0, 0),
+"one_shot": false,
+"speed": 0.0,
+"start_moving": true
+})
+auto_apply_to_matching_node_properties = true
+node_class = "AnimatableBody3D"
+metadata/_custom_type_script = "uid://5cow84q03m6a"

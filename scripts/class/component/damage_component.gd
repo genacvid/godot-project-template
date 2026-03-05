@@ -4,7 +4,7 @@ extends Component
 class_name DamageComponent
 
 @export var max_health:float = 100.0
-@export var team:int
+@export_enum("Friendly","Enemy") var team:int
 @onready var health:float = max_health
 @export var hitbox_root:PhysicalBoneSimulator3D
 @export var behavior_state_machine:StateMachine
@@ -29,7 +29,13 @@ func hurt(amount:float,_attacker:NodePath,_data:Dictionary,bone_idx:int) -> void
 	if health == 0.0:
 		killed.emit(get_node(_attacker))
 		entity.set_collision_layer_value(TraceComponent.MASK.ENTITY,false)
-		if behavior_state_machine:
-			behavior_state_machine._transition_to_next_state(BehaviorState.DEAD)
 		dead = true
 		hitbox_root.active = false
+	## Modify behavior states
+	if behavior_state_machine:
+		if dead:
+			behavior_state_machine._transition_to_next_state(BehaviorState.DEAD)
+		else:
+			entity.navigation.target_entity = get_node(_attacker)
+			behavior_state_machine._transition_to_next_state(BehaviorState.CHASE)
+			

@@ -13,8 +13,7 @@ func fixed_update(_delta: float) -> void: ## Called by the state machine on the 
 	if input: return
 	if damage:
 		if damage.dead: transition.emit(DEAD)
-	entity.camera_root.look_at(navigation.agent.get_next_path_position())
-	entity.model_root.rotation.y = entity.camera_root.rotation.y
+	model_look_at_target()
 	wander_timer += _delta
 	if wander_timer >= max_wander_timer:
 		navigation.set_random_location()

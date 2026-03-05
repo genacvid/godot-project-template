@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" format=3 uid="uid://bek5604vcgq1c"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_kncea"]
+[ext_resource type="Script" uid="uid://dlfkyxxc1hecn" path="res://scripts/fgd/func_pusher.gd" id="2_8b2yv"]
+
+[resource]
+script = ExtResource("1_kncea")
+add_textures_metadata = true
+script_class = ExtResource("2_8b2yv")
+classname = "func_pusher"
+description = "Moves entities that come into contact with it."
+class_properties = Dictionary[String, Variant]({
+"animate": false,
+"direction": Vector3(0, 0, 0),
+"speed": 0.0
+})
+auto_apply_to_matching_node_properties = true
+node_class = "StaticBody3D"
+metadata/_custom_type_script = "uid://5cow84q03m6a"

@@ -35,6 +35,7 @@ var wishjump:bool
 var wishrun:bool
 var wishcrouch:bool
 var can_move:bool = true
+var in_water:bool = false
 var vertical_velocity:float = 0.0
 var terminal_velocity = gravity * -5.0
 

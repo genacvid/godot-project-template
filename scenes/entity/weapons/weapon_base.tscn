@@ -9,6 +9,7 @@ script = ExtResource("2_h5eph")
 attack_type = 1
 firerate = 800.0
 firemode = 2
+recoil_recovery = 0.1
 projectile_scene = ExtResource("2_yc3tb")
 metadata/_custom_type_script = "uid://dt6x5oequfdm2"
 

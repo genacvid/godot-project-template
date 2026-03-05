@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" format=3 uid="uid://e1ljqywqytkh"]
+
+[ext_resource type="Script" uid="uid://d1nwwgcrner8b" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class_display_descriptor.gd" id="1_gfj3v"]
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="2_5na6k"]
+[ext_resource type="PackedScene" uid="uid://dgt8n3uirlkbs" path="res://scenes/entity/nav_exit.tscn" id="2_d5ilu"]
+[ext_resource type="Script" uid="uid://creaqkfr052om" path="res://scripts/fgd/nav_exit.gd" id="3_d5ilu"]
+
+[resource]
+script = ExtResource("2_5na6k")
+scene_file = ExtResource("2_d5ilu")
+script_class = ExtResource("3_d5ilu")
+classname = "point_nav_exit"
+description = "Exit point for nav hints. Key is used by hints to get this node's position."
+class_properties = Dictionary[String, Variant]({
+"key": ""
+})
+auto_apply_to_matching_node_properties = true
+node_groups = Array[String](["NavExit"])
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"

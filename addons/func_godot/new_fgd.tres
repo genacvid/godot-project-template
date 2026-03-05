@@ -2,11 +2,19 @@
 
 [ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="1_4lcsf"]
 [ext_resource type="Script" uid="uid://drlmgulwbjwqu" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_w460x"]
-[ext_resource type="Resource" uid="uid://gu4wduqkruaa" path="res://addons/func_godot/fgd/point_player_spawn.tres" id="3_hs0ca"]
+[ext_resource type="Resource" uid="uid://gu4wduqkruaa" path="res://resources/fgd/point/point_player_spawn.tres" id="2_rv6sv"]
+[ext_resource type="Resource" uid="uid://qr66odftohlk" path="res://resources/fgd/point/point_nav_hint.tres" id="3_y0d01"]
+[ext_resource type="Resource" uid="uid://cg8o501jxnyoa" path="res://resources/fgd/point/point_nav_jump.tres" id="4_bvge1"]
+[ext_resource type="Resource" uid="uid://dftckqnrb5m1" path="res://resources/fgd/point/point_nav_crouch.tres" id="5_b6ilc"]
+[ext_resource type="Resource" uid="uid://e1ljqywqytkh" path="res://resources/fgd/point/point_nav_exit.tres" id="6_g0483"]
+[ext_resource type="Resource" uid="uid://crbq3pcx6pnnw" path="res://resources/fgd/func/func_mover.tres" id="7_grb6e"]
+[ext_resource type="Resource" uid="uid://bek5604vcgq1c" path="res://resources/fgd/func/func_pusher.tres" id="8_b6ilc"]
+[ext_resource type="Resource" uid="uid://cbpo5bw887rvw" path="res://resources/fgd/func/func_rotate.tres" id="9_g0483"]
+[ext_resource type="Resource" uid="uid://bif6kt5o2d6jq" path="res://resources/fgd/func/func_water.tres" id="10_grb6e"]
 
 [resource]
 script = ExtResource("1_w460x")
 fgd_name = "ProjectTemplate"
 base_fgd_files = Array[Resource]([ExtResource("1_4lcsf")])
-entity_definitions = Array[Resource]([ExtResource("3_hs0ca")])
+entity_definitions = Array[Resource]([ExtResource("2_rv6sv"), ExtResource("3_y0d01"), ExtResource("4_bvge1"), ExtResource("5_b6ilc"), ExtResource("6_g0483"), ExtResource("7_grb6e"), ExtResource("8_b6ilc"), ExtResource("9_g0483"), ExtResource("10_grb6e")])
 metadata/_custom_type_script = "uid://drlmgulwbjwqu"

@@ -9,7 +9,8 @@ func update(_delta: float) -> void: ## Called by the state machine on the engine
 
 func fixed_update(_delta: float) -> void: ## Called by the state machine on the engine's physics update tick.
 	if input: return
-	if navigation.target_entity:
+	model_look_at_target()
+	if navigation.target_entity and not move.wishcrouch:
 		navigation.agent.set_target_position(navigation.target_entity.global_position)
 	navigation.update()
 

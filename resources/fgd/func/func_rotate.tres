@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" format=3 uid="uid://cbpo5bw887rvw"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_8i5gy"]
+[ext_resource type="Script" uid="uid://bclsuqkefewnt" path="res://scripts/fgd/func_rotate.gd" id="2_dceh4"]
+
+[resource]
+script = ExtResource("1_8i5gy")
+origin_type = 1
+collision_priority = 0.5
+add_textures_metadata = true
+script_class = ExtResource("2_dceh4")
+classname = "func_rotate"
+description = "Rotating character body"
+class_properties = Dictionary[String, Variant]({
+"direction": Vector3(0, 0, 0),
+"speed": 0.0,
+"start_moving": true
+})
+auto_apply_to_matching_node_properties = true
+node_class = "CharacterBody3D"
+metadata/_custom_type_script = "uid://5cow84q03m6a"
