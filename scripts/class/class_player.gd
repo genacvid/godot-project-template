@@ -20,3 +20,13 @@ func _ready() -> void:
 			self.reset_physics_interpolation()
 			input.rotate_camera()
 			return
+
+func _on_damage_component_killed(attacker: Entity) -> void:
+	prints(name,"killed by",attacker.name)
+	hud.update_health_bar(attacker)
+	revive.rpc()
+@rpc("call_local","any_peer")
+func revive():
+	global_position = Vector3.ZERO
+	damage.health = 100.0
+	damage.dead = false

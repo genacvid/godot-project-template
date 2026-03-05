@@ -99,12 +99,16 @@ func attack_raycast(mask:int = DEFAULT_MASK) -> void:
 func create_projectile(target:Vector3,mask:int = DEFAULT_MASK) -> void:
 	assert(attack_origin != null, "No attack origin set.")
 	if not current_attack_data: return
-	projectile_spawner.spawn(
+	var new_projectile:Projectile = projectile_spawner.spawn(
 		{
 		"position" : attack_origin.global_position,
+		"speed" : current_attack_data.projectile_speed,
+		"damage" : current_attack_data.damage,
+		"knockback" : current_attack_data.knockback,
 		"direction" : attack_origin.global_position.direction_to(target),
 		"attacker" : entity.get_path()
 		})
+	new_projectile.add_collision_exception_with(entity)
 
 func deal_damage(collision:CollisionObject3D):
 	var data:Dictionary = {}

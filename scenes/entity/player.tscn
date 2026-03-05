@@ -108,6 +108,20 @@ text = "Settings"
 layout_mode = 2
 text = "Quit"
 
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1541491079]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -181.0
+offset_top = -27.0
+offset_right = 181.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+
 [node name="CameraRoot" type="RemoteTransform3D" parent="." unique_id=1919924614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 remote_path = NodePath("../CameraPivot")
@@ -115,9 +129,10 @@ remote_path = NodePath("../CameraPivot")
 [node name="CameraPivot" type="SpringArm3D" parent="." unique_id=993350120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("SphereShape3D_qwm7e")
-spring_length = 0.0
+spring_length = 3.0
 
 [node name="Camera" type="Camera3D" parent="CameraPivot" unique_id=1995853305]
+fov = 90.0
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1872269822]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -146,7 +161,7 @@ target_position = Vector3(0, -0.4, 0)
 
 [node name="PhysicalBone3D" type="PhysicalBone3D" parent="test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1690136642]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0.5, 0)
-collision_layer = 2
+collision_layer = 4
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 body_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 bone_name = "Bone"
@@ -240,5 +255,7 @@ metadata/_custom_type_script = "uid://dayegkentyhnc"
 [connection signal="pressed" from="HUD/Pause/Settings" to="HUD" method="_on_settings_pressed"]
 [connection signal="pressed" from="HUD/Pause/Quit" to="HUD" method="_on_quit_pressed"]
 [connection signal="attacked" from="AttackComponent" to="AttackComponent" method="_on_attacked"]
+[connection signal="damaged" from="DamageComponent" to="HUD" method="update_health_bar"]
+[connection signal="killed" from="DamageComponent" to="." method="_on_damage_component_killed"]
 
 [editable path="test_character"]

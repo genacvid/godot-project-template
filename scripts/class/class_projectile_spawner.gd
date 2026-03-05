@@ -8,6 +8,9 @@ func _init() -> void:
 func _spawn_projectile(data) -> Projectile:
 	var projectile:Projectile = PROJECTILE_BASE.instantiate()
 	projectile.direction = data["direction"]
+	projectile.damage = data["damage"]
+	projectile.speed = data["speed"]
+	projectile.knockback = data["knockback"]
 	projectile.spawn_origin = data["position"]
 	projectile.attacker = data["attacker"]
 	projectile.name = "Projectile" + str(multiplayer.get_unique_id())

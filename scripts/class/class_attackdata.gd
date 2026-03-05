@@ -18,3 +18,4 @@ enum{MODE_SEMI,MODE_BURST,MODE_AUTO}
 @export var max_capacity:int = 10
 @export var reserve:int = 1
 @export var projectile_scene:PackedScene
+@export var projectile_speed:float = 10.0

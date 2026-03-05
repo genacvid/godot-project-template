@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dxjirw1ernqaj" path="res://scripts/state/movement/movement_state_idle.gd" id="7_qgf6t"]
 [ext_resource type="Script" uid="uid://cwaoeaqv1m7gm" path="res://scripts/state/movement/movement_state_ground.gd" id="8_88yew"]
 [ext_resource type="Script" uid="uid://6nq5isobplrx" path="res://scripts/state/movement/movement_state_jump.gd" id="9_vfcjy"]
+[ext_resource type="Script" uid="uid://cfuucotpp8r01" path="res://scripts/state/behavior/behavior_state_dead.gd" id="10_dsgc7"]
 [ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="10_jmlf5"]
 [ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="11_epjjn"]
 
@@ -18,6 +19,9 @@
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1j7wa"]
 size = Vector3(0.25, 1, 0.25)
@@ -32,7 +36,7 @@ size = Vector3(0.26, 0.3, 0.36)
 size = Vector3(0.27, 1.07, 0.27)
 
 [node name="TestMob" type="CharacterBody3D" unique_id=419566217 node_paths=PackedStringArray("move", "damage", "navigation", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
-collision_layer = 4
+collision_layer = 2
 script = ExtResource("1_jonaa")
 move = NodePath("MoveComponent")
 damage = NodePath("DamageComponent")
@@ -114,9 +118,10 @@ script = ExtResource("5_dsgc7")
 agent = NodePath("../NavigationAgent3D")
 metadata/_custom_type_script = "uid://mrfi3vw6rjjt"
 
-[node name="DamageComponent" type="Node" parent="." unique_id=1348744228 node_paths=PackedStringArray("hitbox_root")]
+[node name="DamageComponent" type="Node" parent="." unique_id=1348744228 node_paths=PackedStringArray("hitbox_root", "behavior_state_machine")]
 script = ExtResource("5_hvw13")
-hitbox_root = NodePath("")
+hitbox_root = NodePath("../test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D")
+behavior_state_machine = NodePath("../BehaviorStateMachine")
 metadata/_custom_type_script = "uid://dsoospj4hh1rx"
 
 [node name="VisualModifierComponent" type="Node" parent="." unique_id=1929713666 node_paths=PackedStringArray("target_meshes")]
@@ -132,6 +137,10 @@ metadata/_custom_type_script = "uid://ck25br38oyvpq"
 [node name="BehaviorStateWander" type="Node" parent="BehaviorStateMachine" unique_id=896787037]
 script = ExtResource("6_fqrgd")
 metadata/_custom_type_script = "uid://dqfns43qo8xjv"
+
+[node name="BehaviorStateDead" type="Node" parent="BehaviorStateMachine" unique_id=833215297]
+script = ExtResource("10_dsgc7")
+metadata/_custom_type_script = "uid://cfuucotpp8r01"
 
 [node name="MovementStateMachine" type="Node" parent="." unique_id=619284631 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_janft")

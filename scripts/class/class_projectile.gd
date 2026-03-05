@@ -10,6 +10,7 @@ var damage:float = 0.0
 func _ready() -> void:
 	reset_physics_interpolation()
 	global_position = spawn_origin
+	self.add_collision_exception_with(get_node(attacker))
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	velocity = direction.normalized() * speed
@@ -18,7 +19,7 @@ func _physics_process(delta: float) -> void:
 		var object = collision.get_collider(0)
 		var pos = collision.get_position(0)
 		var normal = collision.get_normal(0)
-		if object is PhysicalBone3D:
+		if object is Entity:
 			deal_damage(object)
 		despawn.rpc()
 @rpc("any_peer","call_local","reliable")
@@ -28,13 +29,10 @@ func despawn():
 
 func deal_damage(collision:CollisionObject3D):
 	var data:Dictionary = {}
-	var target_entity:Entity = collision.owner
+	var target_entity:Entity = collision
 	var owner_entity = get_node(attacker)
-	var bone_idx = collision.get_bone_id()
-	if not collision.get_meta_list().is_empty():
-		for entry in collision.get_meta_list(): data[entry] = collision.get_meta(entry,0)
 	if target_entity.damage:
-		target_entity.damage.hurt.rpc(damage, attacker, data,bone_idx)
+		target_entity.damage.hurt.rpc(damage, attacker, data,0)
 	if target_entity.move:
 		var knockback_vector:Vector3 = global_transform.basis.z
 		target_entity.move.knockback.rpc(knockback_vector,knockback)
