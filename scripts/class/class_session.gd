@@ -140,12 +140,13 @@ func kicked_from_steam_lobby(lobby_id: int, admin_id: int, due_to_disconnect: in
 func on_client_connect(id:int):
 	if id != HOST_ID:
 		add_player(id)
+		## Do join messages here
+		send_chat_message.rpc(str(id) + " joined the game")
 	register_client_info.rpc_id(id,local_client_info)
 	await client_connected
-	## Do join messages here
-
 ## Ran on host when a client disconnects from the session
 func on_client_disconnect(id:int):
+	send_chat_message.rpc(str(id) + " left the game")
 	if id == HOST_ID:
 		## Server has shutdown, disconnect all clients here
 		Game.create_warning("Host disconnected.","Session ended")
@@ -158,16 +159,12 @@ func on_connect_to_host():
 	var peer_id = multiplayer.get_unique_id()
 	shared_client_info[peer_id] = local_client_info
 	client_connected.emit(peer_id,local_client_info)
-	if peer_id != HOST_ID:
-		## Do join messages here
-		pass
 
 ## Ran on clients when they leave the session
 func on_disconnect_from_host(id:int):
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	shared_client_info.clear()
 	server_disconnected.emit()
-
 ## Only ran on clients when MultiplayerPeer fails to connect
 func on_connect_fail():
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
