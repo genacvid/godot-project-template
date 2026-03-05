@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dbxh78ru0g6jc" path="res://scripts/class/class_weapon.gd" id="1_qfsxl"]
 [ext_resource type="Script" uid="uid://dt6x5oequfdm2" path="res://scripts/class/class_attackdata.gd" id="2_h5eph"]
+[ext_resource type="PackedScene" uid="uid://bdwr1uqv4841g" path="res://scenes/entity/weapons/projectile_base.tscn" id="2_yc3tb"]
 
 [sub_resource type="Resource" id="Resource_yc3tb"]
 script = ExtResource("2_h5eph")
+attack_type = 1
 firerate = 800.0
 firemode = 2
+projectile_scene = ExtResource("2_yc3tb")
 metadata/_custom_type_script = "uid://dt6x5oequfdm2"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yc3tb"]

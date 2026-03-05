@@ -24,6 +24,11 @@ signal reloaded
 const BURST_TIMER = 0.12
 func _physics_process(delta: float) -> void:
 	## Check if weapon is valid
+	if not is_multiplayer_authority(): return
+	if entity is Player:
+		if not wishattack:
+			if recoil_tween: recoil_tween.kill()
+			entity.camera.rotation_degrees.x = lerp(entity.camera.rotation_degrees.x,0.0,delta*5.0)
 	if not current_weapon: return
 	if current_weapon:
 		current_attack_data = current_weapon.attack_data
@@ -61,17 +66,21 @@ func _physics_process(delta: float) -> void:
 			attack_timer = 0.0
 	if wishreload:
 		reloaded.emit()
+var recoil_tween:Tween
 func _on_attacked() -> void:
 	if entity is Player:
 		var recoil:float = current_attack_data.recoil
 		var recovery:float = current_attack_data.recoil_recovery
-		create_tween().tween_property(
+		recoil_tween = create_tween()
+		recoil_tween.tween_property(
 			entity.camera,"rotation_degrees:x",
 			entity.camera.rotation_degrees.x,recovery
 		).from(entity.camera.rotation_degrees.x + recoil).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)
 	match current_attack_data.attack_type:
 		AttackData.TYPE_RAY:
 			attack_raycast()
+		AttackData.TYPE_PROJECTILE:
+			create_projectile(aim_pos)
 func attack_raycast(mask:int = DEFAULT_MASK) -> void:
 	assert(attack_origin != null, "No attack origin set.")
 	if not current_attack_data: return
@@ -86,11 +95,10 @@ func attack_raycast(mask:int = DEFAULT_MASK) -> void:
 	if collision is PhysicalBone3D:
 		deal_damage(collision)
 	spread += current_attack_data.spread_increase
-	
+
 func create_projectile(target:Vector3,mask:int = DEFAULT_MASK) -> void:
 	assert(attack_origin != null, "No attack origin set.")
 	if not current_attack_data: return
-	projectile_spawner.projectile_scene = current_attack_data.projectile_scene
 	projectile_spawner.spawn(
 		{
 		"position" : attack_origin.global_position,

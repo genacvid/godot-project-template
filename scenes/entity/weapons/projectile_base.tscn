@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bdwr1uqv4841g"]
+
+[ext_resource type="Script" uid="uid://c8celtbs0a70y" path="res://scripts/class/class_projectile.gd" id="1_276g5"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i0x0m"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nxvt8"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_276g5"]
+radius = 0.1
+height = 0.2
+
+[node name="Projectile" type="CharacterBody3D" unique_id=1775925611]
+physics_interpolation_mode = 2
+top_level = true
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_276g5")
+metadata/_custom_type_script = "uid://c8celtbs0a70y"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2061382325]
+replication_config = SubResource("SceneReplicationConfig_i0x0m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=215534015]
+shape = SubResource("SphereShape3D_nxvt8")
+debug_color = Color(0.70196074, 0.0075739403, 0, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1665156676]
+mesh = SubResource("SphereMesh_276g5")
