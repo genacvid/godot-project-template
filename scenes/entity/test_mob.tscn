@@ -44,6 +44,7 @@ size = Vector3(0.27, 1.07, 0.27)
 
 [node name="TestMob" type="CharacterBody3D" unique_id=419566217 node_paths=PackedStringArray("move", "damage", "navigation", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
 collision_layer = 2
+slide_on_ceiling = false
 script = ExtResource("1_jonaa")
 move = NodePath("MoveComponent")
 damage = NodePath("DamageComponent")

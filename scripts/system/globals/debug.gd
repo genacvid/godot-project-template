@@ -15,17 +15,22 @@ const DEBUG_PRINT_ERROR = "	[b][color=red]ERROR! [/color][/b]"
 const DEBUG_PRINT_WARNING = "	[b][color=yellow]WARNING! [/color][/b]"
 
 func say(key:String,value):
+	if not OS.is_debug_build(): return
 	if value is Vector2: value = snapped(value,DEBUG_VALUE_SNAP_VEC2)
 	if value is Vector3: value = snapped(value,DEBUG_VALUE_SNAP_VEC3)
 	if value is float: value = snapped(value,DEBUG_VALUE_SNAP_FLOAT)
 	DebugDraw2D.set_text(key,value,0,Color.WHITE,-1.0)
 
-func line(from:Vector3,to:Vector3,color:Color=Color.RED,duration:float=0.0): DebugDraw3D.draw_line(from,to,color,duration)
+func line(from:Vector3,to:Vector3,color:Color=Color.RED,duration:float=0.0):
+	if not OS.is_debug_build(): return
+	DebugDraw3D.draw_line(from,to,color,duration)
 
 const DEFAULT_BOX_SIZE = Vector3(0.1,0.1,0.1)
 func box(to:Vector3,duration:float = 0.0, size:Vector3 = DEFAULT_BOX_SIZE,color:Color=Color.RED):
+	if not OS.is_debug_build(): return
 	DebugDraw3D.draw_box(to,Quaternion.from_euler(Vector3.UP),size,color,true,duration)
 
 const DEFAULT_SPHERE_SIZE = 0.1
 func sphere(to:Vector3,duration:float = 0.0, size:float = DEFAULT_SPHERE_SIZE,color:Color=Color.RED):
+	if not OS.is_debug_build(): return
 	DebugDraw3D.draw_sphere(to,size,color,duration)

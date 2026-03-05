@@ -61,9 +61,9 @@ func _physics_process(delta: float) -> void:
 
 	## set aim pos based on screenspace center
 	if entity is Player:
-		var mouse_pos:Vector2 = get_window().get_mouse_position()
-		var from = entity.camera.project_ray_origin(mouse_pos)
-		var to = entity.camera.project_position(mouse_pos,entity.camera.far)
+		var center_screen:Vector2 = get_window().size / 2.0
+		var from = entity.camera.project_ray_origin(center_screen)
+		var to = entity.camera.project_position(center_screen,entity.camera.far)
 		var pos = entity.trace.ray_pos(from,to,TraceComponent.MASK.GEO)
 		entity.attack.aim_pos = pos
 		Debug.sphere(pos)

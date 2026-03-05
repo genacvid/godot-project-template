@@ -15,9 +15,7 @@
 [ext_resource type="Script" uid="uid://dm8ndbqjyrtuv" path="res://scripts/class/component/attack_component.gd" id="7_2ucpq"]
 [ext_resource type="Script" uid="uid://mlyhdbma8nk5" path="res://scripts/state/movement/movement_state_air.gd" id="7_lo118"]
 [ext_resource type="Script" uid="uid://dsoospj4hh1rx" path="res://scripts/class/component/damage_component.gd" id="7_r4rq5"]
-[ext_resource type="PackedScene" uid="uid://b5fwc6dhhsuc8" path="res://scenes/entity/weapons/weapon_base.tscn" id="11_1m386"]
 [ext_resource type="Script" uid="uid://div36l2hagrks" path="res://scripts/class/component/inventory_component.gd" id="11_vt2c5"]
-[ext_resource type="Script" uid="uid://dt6x5oequfdm2" path="res://scripts/class/class_attackdata.gd" id="12_1m386"]
 [ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="14_qwm7e"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sfp8"]
@@ -34,6 +32,20 @@ properties/3/path = NodePath("test_character/Armature/Skeleton3D/Hitboxes:active
 properties/3/spawn = true
 properties/3/replication_mode = 2
 
+[sub_resource type="Gradient" id="Gradient_th57u"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2aqsq"]
+gradient = SubResource("Gradient_th57u")
+width = 5
+height = 5
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_qwm7e"]
 radius = 0.1
 
@@ -48,10 +60,6 @@ size = Vector3(0.26, 0.3, 0.26)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vt2c5"]
 size = Vector3(0.27, 1.07, 0.27)
-
-[sub_resource type="Resource" id="Resource_1m386"]
-script = ExtResource("12_1m386")
-metadata/_custom_type_script = "uid://dt6x5oequfdm2"
 
 [node name="Player" type="CharacterBody3D" unique_id=111883241 node_paths=PackedStringArray("move", "attack", "damage", "inventory", "input", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
 collision_layer = 2
@@ -160,6 +168,22 @@ size_flags_vertical = 8
 flat = true
 script = ExtResource("4_th57u")
 
+[node name="Crosshair" type="TextureRect" parent="HUD" unique_id=1963559114]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_2aqsq")
+stretch_mode = 3
+
 [node name="CameraRoot" type="RemoteTransform3D" parent="." unique_id=1919924614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 remote_path = NodePath("../CameraPivot")
@@ -253,12 +277,7 @@ metadata/_custom_type_script = "uid://div36l2hagrks"
 
 [node name="Slot1" type="Node" parent="InventoryComponent" unique_id=289081338]
 
-[node name="Weapon" parent="InventoryComponent/Slot1" unique_id=111287222 instance=ExtResource("11_1m386")]
-
 [node name="Slot2" type="Node" parent="InventoryComponent" unique_id=2121937281]
-
-[node name="Weapon" parent="InventoryComponent/Slot2" unique_id=1137552089 instance=ExtResource("11_1m386")]
-attack_data = SubResource("Resource_1m386")
 
 [node name="Slot3" type="Node" parent="InventoryComponent" unique_id=2144442099]
 
