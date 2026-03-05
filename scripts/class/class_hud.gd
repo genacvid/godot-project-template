@@ -2,6 +2,8 @@ extends Control
 class_name HUD
 @onready var player:Player = owner
 @export var pause:Control
+@onready var chat_container: VBoxContainer = %ChatContainer
+@onready var chat_line: ChatLine = $ChatBox/ChatLine
 
 
 func _on_resume_pressed() -> void:

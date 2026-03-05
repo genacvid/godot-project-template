@@ -28,6 +28,8 @@ func hurt(amount:float,_attacker:NodePath,_data:Dictionary,bone_idx:int) -> void
 	damaged.emit(get_node(_attacker))
 	if health == 0.0:
 		killed.emit(get_node(_attacker))
+		entity.set_collision_layer_value(TraceComponent.MASK.ENTITY,false)
 		if behavior_state_machine:
 			behavior_state_machine._transition_to_next_state(BehaviorState.DEAD)
 		dead = true
+		hitbox_root.active = false

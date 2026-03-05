@@ -17,7 +17,7 @@ func switch_slot(idx:int):
 		current_slot = idx
 		slot_active = true
 	if slot_has_weapon(idx):
-		if entity.attack.current_weapon: hide_current_weapon.rpc()
+		if entity.attack.current_weapon: entity.attack.current_weapon.hide()
 		slot_set_visible.rpc(idx,slot_active)
 		entity.attack.current_weapon = slots[idx].get_child(0)
 		set_weapon_transform.rpc(slot_get_weapon(idx).get_path())
@@ -26,7 +26,5 @@ func slot_has_weapon(idx:int) -> bool: return slots[idx].get_child_count() > 0
 func slot_get_weapon(idx:int) -> Weapon: return slots[idx].get_child(0)
 @rpc("any_peer","call_local")
 func slot_set_visible(idx:int,toggle:bool) -> void: slot_get_weapon(idx).visible = toggle
-@rpc("any_peer","call_local")
-func hide_current_weapon(): entity.attack.current_weapon.hide()
 @rpc("any_peer","call_local")
 func set_weapon_transform(path): weapon_transform.remote_path = path

@@ -15,7 +15,7 @@ const LOCALHOST:String = "127.0.0.1"
 const HOST_ID = 1
 const PLAYER = preload("uid://dkajcrr1254sh")
 const TEST_STAGE = "res://scenes/stage/test.tscn"
-
+enum {NET_CHANNEL_DEFAULT,NET_CHANNEL_CHAT}
 ## different multiplayer peers to handle client connections
 var enet_peer:ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 var steam_peer:SteamMultiplayerPeer = SteamMultiplayerPeer.new()
@@ -215,3 +215,9 @@ func remove_player(id:int):
 	var player_ref = get_node_or_null(str(id))
 	if is_instance_valid(player_ref):
 		player_ref.queue_free()
+
+## Send a chat message
+@rpc("any_peer","call_local","reliable",Session.NET_CHANNEL_CHAT)
+func send_chat_message(message:String) -> void:
+	var label = Label.new(); Game.hud.chat_container.add_child(label)
+	label.text = message

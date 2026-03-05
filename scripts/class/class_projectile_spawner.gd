@@ -14,4 +14,5 @@ func _spawn_projectile(data) -> Projectile:
 	projectile.spawn_origin = data["position"]
 	projectile.attacker = data["attacker"]
 	projectile.name = "Projectile" + str(multiplayer.get_unique_id())
+	projectile.team = data["team"]
 	return projectile

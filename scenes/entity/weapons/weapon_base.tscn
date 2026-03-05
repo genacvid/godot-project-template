@@ -12,6 +12,11 @@ firemode = 2
 projectile_scene = ExtResource("2_yc3tb")
 metadata/_custom_type_script = "uid://dt6x5oequfdm2"
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yc3tb"]
+properties/0/path = NodePath(".:visible")
+properties/0/spawn = false
+properties/0/replication_mode = 2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yc3tb"]
 albedo_color = Color(1, 0.27160442, 0, 1)
 
@@ -23,10 +28,14 @@ radial_segments = 16
 rings = 4
 
 [node name="Weapon" type="CharacterBody3D" unique_id=111287222 node_paths=PackedStringArray("muzzle")]
+visible = false
 script = ExtResource("1_qfsxl")
 attack_data = SubResource("Resource_yc3tb")
 muzzle = NodePath("ModelRoot/Marker3D")
 metadata/_custom_type_script = "uid://dbxh78ru0g6jc"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=895199130]
+replication_config = SubResource("SceneReplicationConfig_yc3tb")
 
 [node name="ModelRoot" type="Node3D" parent="." unique_id=900061537]
 

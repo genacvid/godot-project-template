@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ocj3b8kce36s" path="res://resources/models/test_character/test_character.blend" id="4_2ucpq"]
 [ext_resource type="Script" uid="uid://dxjirw1ernqaj" path="res://scripts/state/movement/movement_state_idle.gd" id="4_k4nkw"]
 [ext_resource type="Script" uid="uid://1sgbweejusa2" path="res://scripts/class/component/input_component.gd" id="4_poj5f"]
+[ext_resource type="Script" uid="uid://brxf31r1nftbm" path="res://scripts/system/chat_line.gd" id="4_th57u"]
 [ext_resource type="Script" uid="uid://cwaoeaqv1m7gm" path="res://scripts/state/movement/movement_state_ground.gd" id="5_bee8u"]
 [ext_resource type="Script" uid="uid://k63xetoeertn" path="res://scripts/class/component/trace_component.gd" id="5_ksla3"]
 [ext_resource type="Script" uid="uid://6nq5isobplrx" path="res://scripts/state/movement/movement_state_jump.gd" id="6_ksla3"]
@@ -16,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dsoospj4hh1rx" path="res://scripts/class/component/damage_component.gd" id="7_r4rq5"]
 [ext_resource type="PackedScene" uid="uid://b5fwc6dhhsuc8" path="res://scenes/entity/weapons/weapon_base.tscn" id="11_1m386"]
 [ext_resource type="Script" uid="uid://div36l2hagrks" path="res://scripts/class/component/inventory_component.gd" id="11_vt2c5"]
+[ext_resource type="Script" uid="uid://dt6x5oequfdm2" path="res://scripts/class/class_attackdata.gd" id="12_1m386"]
 [ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="14_qwm7e"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sfp8"]
@@ -25,6 +27,12 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("test_character:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("test_character/WeaponTransform:remote_path")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("test_character/Armature/Skeleton3D/Hitboxes:active")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qwm7e"]
 radius = 0.1
@@ -40,6 +48,10 @@ size = Vector3(0.26, 0.3, 0.26)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vt2c5"]
 size = Vector3(0.27, 1.07, 0.27)
+
+[sub_resource type="Resource" id="Resource_1m386"]
+script = ExtResource("12_1m386")
+metadata/_custom_type_script = "uid://dt6x5oequfdm2"
 
 [node name="Player" type="CharacterBody3D" unique_id=111883241 node_paths=PackedStringArray("move", "attack", "damage", "inventory", "input", "trace", "model_root", "camera_root", "collision", "state_machines", "spawner", "synchronizer")]
 collision_layer = 2
@@ -70,7 +82,6 @@ spawn_path = NodePath("..")
 replication_config = SubResource("SceneReplicationConfig_7sfp8")
 
 [node name="HUD" type="Control" parent="." unique_id=1635399331 node_paths=PackedStringArray("pause")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,6 +133,32 @@ grow_horizontal = 2
 grow_vertical = 0
 value = 100.0
 
+[node name="ChatBox" type="VBoxContainer" parent="HUD" unique_id=1837152146]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56640625
+anchor_right = 1.0
+anchor_bottom = 0.2734375
+grow_horizontal = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HUD/ChatBox" unique_id=948047175]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChatContainer" type="VBoxContainer" parent="HUD/ChatBox/ScrollContainer" unique_id=1106581505]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ChatLine" type="LineEdit" parent="HUD/ChatBox" unique_id=1490440048]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+flat = true
+script = ExtResource("4_th57u")
+
 [node name="CameraRoot" type="RemoteTransform3D" parent="." unique_id=1919924614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 remote_path = NodePath("../CameraPivot")
@@ -129,7 +166,7 @@ remote_path = NodePath("../CameraPivot")
 [node name="CameraPivot" type="SpringArm3D" parent="." unique_id=993350120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("SphereShape3D_qwm7e")
-spring_length = 3.0
+spring_length = 0.0
 
 [node name="Camera" type="Camera3D" parent="CameraPivot" unique_id=1995853305]
 fov = 90.0
@@ -157,16 +194,16 @@ target_position = Vector3(0, -0.4, 0)
 
 [node name="test_character" parent="." unique_id=265886550 instance=ExtResource("4_2ucpq")]
 
-[node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="test_character/Armature/Skeleton3D" parent_id_path=PackedInt32Array(265886550, 203218618) index="1" unique_id=1487735855]
+[node name="Hitboxes" type="PhysicalBoneSimulator3D" parent="test_character/Armature/Skeleton3D" parent_id_path=PackedInt32Array(265886550, 203218618) index="1" unique_id=1487735855]
 
-[node name="PhysicalBone3D" type="PhysicalBone3D" parent="test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1690136642]
+[node name="Bone" type="PhysicalBone3D" parent="test_character/Armature/Skeleton3D/Hitboxes" unique_id=1690136642]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0.5, 0)
 collision_layer = 4
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 body_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 bone_name = "Bone"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D/PhysicalBone3D" unique_id=1942578487]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test_character/Armature/Skeleton3D/Hitboxes/Bone" unique_id=1942578487]
 shape = SubResource("BoxShape3D_vt2c5")
 debug_color = Color(0.7019608, 0, 0.015686275, 1)
 
@@ -203,7 +240,7 @@ metadata/_custom_type_script = "uid://k63xetoeertn"
 
 [node name="DamageComponent" type="Node" parent="." unique_id=226954338 node_paths=PackedStringArray("hitbox_root")]
 script = ExtResource("7_r4rq5")
-hitbox_root = NodePath("../test_character/Armature/Skeleton3D/PhysicalBoneSimulator3D")
+hitbox_root = NodePath("../test_character/Armature/Skeleton3D/Hitboxes")
 metadata/_custom_type_script = "uid://dsoospj4hh1rx"
 
 [node name="InventoryComponent" type="Node" parent="." unique_id=1520205180 node_paths=PackedStringArray("weapon_transform")]
@@ -218,6 +255,9 @@ metadata/_custom_type_script = "uid://div36l2hagrks"
 [node name="Weapon" parent="InventoryComponent/Slot1" unique_id=111287222 instance=ExtResource("11_1m386")]
 
 [node name="Slot2" type="Node" parent="InventoryComponent" unique_id=2121937281]
+
+[node name="Weapon" parent="InventoryComponent/Slot2" unique_id=1137552089 instance=ExtResource("11_1m386")]
+attack_data = SubResource("Resource_1m386")
 
 [node name="Slot3" type="Node" parent="InventoryComponent" unique_id=2144442099]
 
@@ -254,6 +294,9 @@ metadata/_custom_type_script = "uid://dayegkentyhnc"
 [connection signal="pressed" from="HUD/Pause/Resume" to="HUD" method="_on_resume_pressed"]
 [connection signal="pressed" from="HUD/Pause/Settings" to="HUD" method="_on_settings_pressed"]
 [connection signal="pressed" from="HUD/Pause/Quit" to="HUD" method="_on_quit_pressed"]
+[connection signal="focus_entered" from="HUD/ChatBox/ChatLine" to="HUD/ChatBox/ChatLine" method="_on_focus_entered"]
+[connection signal="focus_exited" from="HUD/ChatBox/ChatLine" to="HUD/ChatBox/ChatLine" method="_on_focus_exited"]
+[connection signal="text_submitted" from="HUD/ChatBox/ChatLine" to="HUD/ChatBox/ChatLine" method="_on_text_submitted"]
 [connection signal="attacked" from="AttackComponent" to="AttackComponent" method="_on_attacked"]
 [connection signal="damaged" from="DamageComponent" to="HUD" method="update_health_bar"]
 [connection signal="killed" from="DamageComponent" to="." method="_on_damage_component_killed"]

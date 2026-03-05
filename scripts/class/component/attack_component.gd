@@ -5,7 +5,7 @@ class_name AttackComponent
 @export var attack_origin:Node3D
 @export var projectile_spawner:ProjectileSpawner
 ## Attack components *should* only hit these two collision layers
-const DEFAULT_MASK = 1 | 3
+const DEFAULT_MASK = 4 | 1
 @export var current_weapon:Weapon
 var current_attack_data:AttackData
 var wishattack:bool = false
@@ -29,6 +29,7 @@ func _physics_process(delta: float) -> void:
 		if not wishattack:
 			if recoil_tween: recoil_tween.kill()
 			entity.camera.rotation_degrees.x = lerp(entity.camera.rotation_degrees.x,0.0,delta*5.0)
+	if Game.chatting: return
 	if not current_weapon: return
 	if current_weapon:
 		current_attack_data = current_weapon.attack_data
@@ -71,11 +72,12 @@ func _on_attacked() -> void:
 	if entity is Player:
 		var recoil:float = current_attack_data.recoil
 		var recovery:float = current_attack_data.recoil_recovery
+		var rotation = clamp(entity.camera.rotation_degrees.x,0.0,20.0)
 		recoil_tween = create_tween()
 		recoil_tween.tween_property(
 			entity.camera,"rotation_degrees:x",
 			entity.camera.rotation_degrees.x,recovery
-		).from(entity.camera.rotation_degrees.x + recoil).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)
+		).from(rotation + recoil).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SPRING)
 	match current_attack_data.attack_type:
 		AttackData.TYPE_RAY:
 			attack_raycast()
@@ -106,7 +108,8 @@ func create_projectile(target:Vector3,mask:int = DEFAULT_MASK) -> void:
 		"damage" : current_attack_data.damage,
 		"knockback" : current_attack_data.knockback,
 		"direction" : attack_origin.global_position.direction_to(target),
-		"attacker" : entity.get_path()
+		"attacker" : entity.get_path(),
+		"team" : entity.damage.team
 		})
 	new_projectile.add_collision_exception_with(entity)
 

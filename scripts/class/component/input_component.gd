@@ -36,15 +36,20 @@ func _physics_process(delta: float) -> void:
 	localdir = Vector3(
 		Input.get_action_strength(&"move_right") - Input.get_action_strength(&"move_left"), 0,
 		Input.get_action_strength(&"move_backwards") - Input.get_action_strength(&"move_forwards"))
+	entity.move.can_move = !Game.chatting
 	## rotate localized input around the camera's vertical axis
 	if entity.move.can_move:
 		entity.move.wishdir = localdir.rotated(Vector3.UP, entity.camera_root.global_transform.basis.get_euler().y).normalized()
-	else: entity.move.wishdir = Vector3.ZERO
+		entity.move.wishjump = Input.is_action_just_pressed(&"jump") if not auto_jump else Input.is_action_pressed(&"jump")
+		entity.move.wishcrouch = Input.is_action_pressed(&"crouch")
+		entity.move.wishrun = Input.is_action_just_pressed(&"run")
+	else:
+		entity.move.wishcrouch = false
+		entity.move.wishrun = false
+		entity.move.wishjump = false
+		entity.move.wishdir = Vector3.ZERO
 	
 	## set movement states
-	entity.move.wishjump = Input.is_action_just_pressed(&"jump") if not auto_jump else Input.is_action_pressed(&"jump")
-	entity.move.wishcrouch = Input.is_action_pressed(&"crouch")
-	entity.move.wishrun = Input.is_action_just_pressed(&"run")
 	entity.attack.wishattack = Input.is_action_pressed("attack")
 
 	## set inventory states
@@ -62,3 +67,7 @@ func _physics_process(delta: float) -> void:
 		var pos = entity.trace.ray_pos(from,to,TraceComponent.MASK.GEO)
 		entity.attack.aim_pos = pos
 		Debug.sphere(pos)
+
+	## set chat state
+	if Input.is_action_just_pressed("chat"):
+		Game.hud.chat_line.grab_focus()

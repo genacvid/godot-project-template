@@ -6,6 +6,7 @@ var camera:Camera3D
 var hud:HUD
 var session:Session
 var stage:Stage
+var chatting:bool = false
 
 ## Multiplayer states
 const STEAM_APP_ID = 480 # Change this to your assigned Steam appid. 480 (Spacewar) is only used for test purposes.
