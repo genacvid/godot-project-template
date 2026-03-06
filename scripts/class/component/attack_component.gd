@@ -83,6 +83,8 @@ func _on_attacked() -> void:
 			attack_raycast()
 		AttackData.TYPE_PROJECTILE:
 			create_projectile(aim_pos)
+		AttackData.TYPE_MELEE:
+			attack_melee()
 func attack_raycast(mask:int = DEFAULT_MASK) -> void:
 	assert(attack_origin != null, "No attack origin set.")
 	if not current_attack_data: return
@@ -98,6 +100,15 @@ func attack_raycast(mask:int = DEFAULT_MASK) -> void:
 		deal_damage(collision)
 	spread += current_attack_data.spread_increase
 
+func attack_melee():
+	if not current_attack_data: return
+	if not current_weapon.melee_hitbox: return
+	for body:CollisionObject3D in current_weapon.melee_hitbox.get_overlapping_bodies():
+		var obj = entity.trace.ray_obj(attack_origin.global_position,aim_pos,2 | 1)
+		var los = obj == body
+		if los:
+			if obj is Entity:
+				obj.damage.hurt(current_attack_data.damage,entity.get_path(),{},0)
 func create_projectile(target:Vector3,mask:int = DEFAULT_MASK) -> void:
 	assert(attack_origin != null, "No attack origin set.")
 	if not current_attack_data: return

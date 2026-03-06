@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cenn1f10qav8p"]
+
+[ext_resource type="Script" uid="uid://dbxh78ru0g6jc" path="res://scripts/class/class_weapon.gd" id="1_vs3bh"]
+[ext_resource type="Script" uid="uid://dt6x5oequfdm2" path="res://scripts/class/class_attackdata.gd" id="3_41xlj"]
+
+[sub_resource type="Resource" id="Resource_f4xbi"]
+script = ExtResource("3_41xlj")
+attack_type = 2
+metadata/_custom_type_script = "uid://dt6x5oequfdm2"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yc3tb"]
+properties/0/path = NodePath(".:visible")
+properties/0/spawn = false
+properties/0/replication_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f4xbi"]
+albedo_color = Color(0, 1, 0.9777963, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vs3bh"]
+material = SubResource("StandardMaterial3D_f4xbi")
+size = Vector3(0.16, 0.415, 0.065)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f4xbi"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="Melee" type="CharacterBody3D" unique_id=111287222 node_paths=PackedStringArray("melee_hitbox", "muzzle")]
+script = ExtResource("1_vs3bh")
+attack_data = SubResource("Resource_f4xbi")
+melee_hitbox = NodePath("Area3D")
+muzzle = NodePath("ModelRoot/Marker3D")
+metadata/_custom_type_script = "uid://dbxh78ru0g6jc"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=895199130]
+replication_config = SubResource("SceneReplicationConfig_yc3tb")
+
+[node name="ModelRoot" type="Node3D" parent="." unique_id=900061537]
+
+[node name="Marker3D" type="Marker3D" parent="ModelRoot" unique_id=1613417682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4512137)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ModelRoot" unique_id=1877390931]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.21212482)
+mesh = SubResource("BoxMesh_vs3bh")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1833431851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.45831493)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1649351217]
+shape = SubResource("BoxShape3D_f4xbi")
+debug_color = Color(0.70196074, 0.0013460385, 0, 0.41960785)

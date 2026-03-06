@@ -233,7 +233,7 @@ shape = SubResource("BoxShape3D_vt2c5")
 debug_color = Color(0.7019608, 0, 0.015686275, 1)
 
 [node name="WeaponTransform" type="RemoteTransform3D" parent="test_character" unique_id=1082835231]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27069333, 0.5683139, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.568, 0)
 
 [node name="QMoveComponent" type="Node" parent="." unique_id=323689375 node_paths=PackedStringArray("crouchcast", "staircast_up", "staircast_down")]
 script = ExtResource("2_tgyl1")
