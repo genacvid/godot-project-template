@@ -6,6 +6,13 @@ It contains a bunch of useful entity components, state machines, and singletons.
 	Movement
 	Behavior
 
+## Entities
+	Player
+	TestMob
+	Weapon
+	Explosion
+	Projectile
+
 ## Components
 	Attack
 	Damage
@@ -24,6 +31,8 @@ It contains a bunch of useful entity components, state machines, and singletons.
 	Movers
 	Pushers
 	Rotaters
+	Buttons
+	Doors
 	Water
 
 ## Singletons
