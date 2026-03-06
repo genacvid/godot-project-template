@@ -99,7 +99,14 @@ func attack_raycast(mask:int = DEFAULT_MASK) -> void:
 	if collision is PhysicalBone3D:
 		deal_damage(collision)
 	spread += current_attack_data.spread_increase
-
+const EXPLOSION = preload("uid://bb7u37rni1ifm")
+@rpc("any_peer","call_local")
+func create_explosion(pos:Vector3):
+	var new_explosion:Explosion = EXPLOSION.instantiate()
+	self.add_child(new_explosion)
+	new_explosion.global_position = pos
+	new_explosion.attack_explosion()
+	new_explosion.attacker = entity.get_path()
 func attack_melee():
 	if not current_attack_data: return
 	if not current_weapon.melee_hitbox: return

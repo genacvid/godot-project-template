@@ -22,15 +22,13 @@ func _ready() -> void:
 
 @rpc("any_peer","call_local")
 func hurt(amount:float,_attacker:NodePath,_data:Dictionary,bone_idx:int) -> void:
-	if dead: return
+	if dead: return	
 	health -= amount
 	health = clamp(health, 0.0, max_health)
 	damaged.emit(get_node(_attacker))
 	if health == 0.0:
 		killed.emit(get_node(_attacker))
-		entity.set_collision_layer_value(TraceComponent.MASK.ENTITY,false)
 		dead = true
-		hitbox_root.active = false
 	## Modify behavior states
 	if behavior_state_machine:
 		if dead:

@@ -23,10 +23,11 @@ func _ready() -> void:
 
 func _on_damage_component_killed(attacker: Entity) -> void:
 	prints(name,"killed by",attacker.name)
-	hud.update_health_bar(attacker)
+	await get_tree().create_timer(0.1).timeout
 	revive.rpc()
+	hud.update_health_bar(attacker)
 
-@rpc("call_local","any_peer")
+@rpc("any_peer","call_local")
 func revive():
 	global_position = Vector3.ZERO
 	damage.health = 100.0

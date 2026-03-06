@@ -108,7 +108,7 @@ func stairsolve_down():
 func stairsolve_check_angle(normal:Vector3) -> bool:
 	return normal.angle_to(Vector3.UP) > entity.floor_max_angle
 
-@rpc("any_peer")
+@rpc("any_peer","call_local")
 func knockback(vector:Vector3,factor:float=1.0) -> void:
 	entity.velocity -= vector * factor
-	vertical_velocity -= factor
+	vertical_velocity += factor
