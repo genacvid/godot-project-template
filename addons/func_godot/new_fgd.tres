@@ -11,10 +11,12 @@
 [ext_resource type="Resource" uid="uid://bek5604vcgq1c" path="res://resources/fgd/func/func_pusher.tres" id="8_b6ilc"]
 [ext_resource type="Resource" uid="uid://cbpo5bw887rvw" path="res://resources/fgd/func/func_rotate.tres" id="9_g0483"]
 [ext_resource type="Resource" uid="uid://bif6kt5o2d6jq" path="res://resources/fgd/func/func_water.tres" id="10_grb6e"]
+[ext_resource type="Resource" uid="uid://cwdmcjvxw5ugr" path="res://resources/fgd/func/func_button.tres" id="11_grb6e"]
+[ext_resource type="Resource" uid="uid://baaltnmfxs2yo" path="res://resources/fgd/func/func_door_move.tres" id="12_2g7yf"]
 
 [resource]
 script = ExtResource("1_w460x")
 fgd_name = "ProjectTemplate"
 base_fgd_files = Array[Resource]([ExtResource("1_4lcsf")])
-entity_definitions = Array[Resource]([ExtResource("2_rv6sv"), ExtResource("3_y0d01"), ExtResource("4_bvge1"), ExtResource("5_b6ilc"), ExtResource("6_g0483"), ExtResource("7_grb6e"), ExtResource("8_b6ilc"), ExtResource("9_g0483"), ExtResource("10_grb6e")])
+entity_definitions = Array[Resource]([ExtResource("2_rv6sv"), ExtResource("3_y0d01"), ExtResource("4_bvge1"), ExtResource("5_b6ilc"), ExtResource("6_g0483"), ExtResource("7_grb6e"), ExtResource("8_b6ilc"), ExtResource("9_g0483"), ExtResource("10_grb6e"), ExtResource("11_grb6e"), ExtResource("12_2g7yf")])
 metadata/_custom_type_script = "uid://drlmgulwbjwqu"

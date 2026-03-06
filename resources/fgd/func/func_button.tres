@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" format=3 uid="uid://cwdmcjvxw5ugr"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_up4rg"]
+[ext_resource type="Script" uid="uid://bcw4c7tklmpm3" path="res://scripts/fgd/func_button.gd" id="2_x8oq7"]
+
+[resource]
+script = ExtResource("1_up4rg")
+collision_mask = 0
+add_textures_metadata = true
+script_class = ExtResource("2_x8oq7")
+classname = "func_button"
+description = "Calls a function on target nodes that share the same target and key."
+class_properties = Dictionary[String, Variant]({
+"functions": "",
+"target": ""
+})
+auto_apply_to_matching_node_properties = true
+node_class = "StaticBody3D"
+metadata/_custom_type_script = "uid://5cow84q03m6a"

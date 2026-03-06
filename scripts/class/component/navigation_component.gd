@@ -23,7 +23,6 @@ func _ready() -> void:
 			entity.move.jump_impulse = stored_jump_vel
 		)
 func update() -> void:
-	Debug.say("crouch",entity.move.wishcrouch)
 	distance_to_goal = agent.distance_to_target()
 	var nav_command = Vector2(
 		agent.get_next_path_position().x - entity.global_position.x,

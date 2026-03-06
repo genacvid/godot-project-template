@@ -25,7 +25,7 @@ func rotate_camera():
 	entity.camera_root.basis = Basis()
 	entity.camera_root.rotate_x(camera_rotation.y)
 	entity.camera_root.rotate_y(camera_rotation.x)
-
+const MAX_INTERACT_DISTANCE = 2.0
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	if Input.is_action_just_pressed(&"menu"):
@@ -67,7 +67,11 @@ func _physics_process(delta: float) -> void:
 		var pos = entity.trace.ray_pos(from,to,TraceComponent.MASK.GEO)
 		entity.attack.aim_pos = pos
 		Debug.sphere(pos)
-
+		if Input.is_action_just_pressed("interact"):
+			var obj = entity.trace.ray_obj(from,to,TraceComponent.MASK.GEO)
+			var distance = from.distance_to(pos)
+			if obj is FuncButton and distance <= MAX_INTERACT_DISTANCE:
+				obj.pressed.emit()
 	## set chat state
 	if Input.is_action_just_pressed("chat"):
 		Game.hud.chat_line.grab_focus()

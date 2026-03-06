@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" format=3 uid="uid://baaltnmfxs2yo"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_fu22j"]
+[ext_resource type="Script" uid="uid://r0qexp3ek4t2" path="res://scripts/fgd/func_door_move.gd" id="2_2uynv"]
+
+[resource]
+script = ExtResource("1_fu22j")
+collision_mask = 0
+collision_priority = 0.5
+add_textures_metadata = true
+script_class = ExtResource("2_2uynv")
+classname = "func_door_move"
+description = "Door that translates on a vector. Similar to a mover."
+class_properties = Dictionary[String, Variant]({
+"direction": Vector3(0, 4, 0),
+"key": "",
+"speed": 0.0
+})
+auto_apply_to_matching_node_properties = true
+node_class = "AnimatableBody3D"
+node_groups = Array[String](["Target"])
+metadata/_custom_type_script = "uid://5cow84q03m6a"
