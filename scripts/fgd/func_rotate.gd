@@ -14,6 +14,9 @@ func _func_godot_apply_properties(entity_properties: Dictionary):
 	move = true
 func _ready() -> void:
 	move = true
+	if Engine.is_editor_hint(): return
+	var stage_sync :MultiplayerSynchronizer = get_tree().get_first_node_in_group("StageSynchronizer")
+	stage_sync.replication_config.add_property(str(get_path()) + ":position")
 var move:bool = false
 func _physics_process(delta: float) -> void:
 	if move:

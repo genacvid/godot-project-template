@@ -13,6 +13,10 @@ var move:bool = true
 const INVERSE = -1
 func _func_godot_apply_properties(entity_properties: Dictionary):
 	sync_to_physics = false
+func _ready() -> void:
+	if Engine.is_editor_hint(): return
+	var stage_sync :MultiplayerSynchronizer = get_tree().get_first_node_in_group("StageSynchronizer")
+	stage_sync.replication_config.add_property(str(get_path()) + ":position")
 var ceiling_detect:Entity
 func _physics_process(delta: float) -> void:
 	if move:
