@@ -1,7 +1,7 @@
 extends Node
 
 ## Global references to clientside nodes for ease of access
-var player:Player
+var player:Biomech
 var camera:Camera3D
 var hud:HUD
 var session:Session

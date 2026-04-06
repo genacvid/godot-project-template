@@ -1,0 +1,2 @@
+extends PartWeapon
+class_name PartBack

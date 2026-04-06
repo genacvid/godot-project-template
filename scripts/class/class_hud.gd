@@ -1,6 +1,6 @@
 extends Control
 class_name HUD
-@onready var player:Player = owner
+@onready var player:Biomech = owner
 @export var pause:Control
 
 

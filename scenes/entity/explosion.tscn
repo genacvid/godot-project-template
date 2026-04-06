@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bb7u37rni1ifm"]
+
+[ext_resource type="Script" uid="uid://0fjvqiji78br" path="res://scripts/entity/explosion.gd" id="1_msdl0"]
+[ext_resource type="Script" uid="uid://dt6x5oequfdm2" path="res://scripts/class/class_attackdata.gd" id="2_uade5"]
+[ext_resource type="Script" uid="uid://k63xetoeertn" path="res://scripts/class/component/trace_component.gd" id="3_xk2g3"]
+[ext_resource type="Script" uid="uid://dm8ndbqjyrtuv" path="res://scripts/class/component/attack_component.gd" id="4_5gf5g"]
+
+[sub_resource type="Resource" id="Resource_rty4g"]
+script = ExtResource("2_uade5")
+knockback = 5.0
+metadata/_custom_type_script = "uid://dt6x5oequfdm2"
+
+[sub_resource type="Curve" id="Curve_uade5"]
+_data = [Vector2(0.24664882, 1), 0.0, -0.05159429, 0, 0, Vector2(1, 0.24310517), -1.6840248, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uade5"]
+radius = 2.0
+
+[node name="Explosion" type="CharacterBody3D" unique_id=2015507977 node_paths=PackedStringArray("hitbox", "attack", "trace")]
+top_level = true
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_msdl0")
+attack_data = SubResource("Resource_rty4g")
+hitbox = NodePath("Area3D")
+falloff_curve = SubResource("Curve_uade5")
+attack = NodePath("AttackComponent")
+trace = NodePath("TraceComponent")
+metadata/_custom_type_script = "uid://d4bkeq3eiorwk"
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1782011785]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1068213907]
+shape = SubResource("SphereShape3D_uade5")
+debug_color = Color(0.7019608, 0, 0.003921569, 1)
+
+[node name="TraceComponent" type="Node" parent="." unique_id=1197643360]
+script = ExtResource("3_xk2g3")
+metadata/_custom_type_script = "uid://k63xetoeertn"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=1008448113 node_paths=PackedStringArray("attack_origin")]
+script = ExtResource("4_5gf5g")
+attack_origin = NodePath("../Area3D")
+metadata/_custom_type_script = "uid://dm8ndbqjyrtuv"

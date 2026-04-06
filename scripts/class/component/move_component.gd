@@ -16,7 +16,7 @@ class_name MoveComponent
 @onready var current_friction:float = max_friction
 @export var jump_impulse:float = 3.0
 @export var gravity:float = 9.8
-
+@export var fall_speed:float = 0.0
 @onready var entity_standing_size:Vector3 = entity.collision.shape.size
 @onready var entity_standing_pos:Vector3 = entity.collision.position
 @onready var entity_crouching_size:Vector3 = entity.collision.shape.size

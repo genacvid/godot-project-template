@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d1nwwgcrner8b" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class_display_descriptor.gd" id="1_x1tdr"]
 [ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="2_tad1e"]
-[ext_resource type="PackedScene" uid="uid://dkajcrr1254sh" path="res://scenes/entity/player.tscn" id="2_tbrbr"]
-[ext_resource type="Script" uid="uid://de05mnxjkq8ha" path="res://scripts/class/class_player.gd" id="4_bfse7"]
+[ext_resource type="PackedScene" uid="uid://dkajcrr1254sh" path="res://scenes/entity/biomech.tscn" id="2_tbrbr"]
+[ext_resource type="Script" uid="uid://de05mnxjkq8ha" path="res://scripts/class/class_biomech.gd" id="4_bfse7"]
 
 [resource]
 script = ExtResource("2_tad1e")

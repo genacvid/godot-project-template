@@ -1,0 +1,285 @@
+[gd_scene format=3 uid="uid://dkajcrr1254sh"]
+
+[ext_resource type="Script" uid="uid://de05mnxjkq8ha" path="res://scripts/class/class_biomech.gd" id="1_ofm7j"]
+[ext_resource type="Script" uid="uid://bp6cdw3r0vndq" path="res://scripts/class/class_projectile_spawner.gd" id="2_pcwit"]
+[ext_resource type="Script" uid="uid://b0b6s4d5sruwa" path="res://scripts/class/class_hud.gd" id="3_4uluf"]
+[ext_resource type="PackedScene" uid="uid://gkk4xlnrk4ah" path="res://resources/models/gant/Gant.glb" id="4_2cqfy"]
+[ext_resource type="Script" uid="uid://cg3ra05ikl5x7" path="res://scenes/entity/biomech_move_component.gd" id="4_jlhud"]
+[ext_resource type="Script" uid="uid://1sgbweejusa2" path="res://scripts/class/component/input_component.gd" id="5_aitkf"]
+[ext_resource type="Script" uid="uid://he2e0sckx5re" path="res://scripts/class/component/partmanager_component.gd" id="5_pcwit"]
+[ext_resource type="Script" uid="uid://b2pilihbpg61t" path="res://scripts/class/part/class_parts_head.gd" id="6_4uluf"]
+[ext_resource type="Script" uid="uid://k63xetoeertn" path="res://scripts/class/component/trace_component.gd" id="6_6acau"]
+[ext_resource type="Script" uid="uid://dq35mne6tldci" path="res://scripts/class/part/class_parts_torso.gd" id="7_ngc71"]
+[ext_resource type="Script" uid="uid://dm8ndbqjyrtuv" path="res://scripts/class/component/attack_component.gd" id="7_ufvep"]
+[ext_resource type="Script" uid="uid://dsoospj4hh1rx" path="res://scripts/class/component/damage_component.gd" id="8_ngc71"]
+[ext_resource type="Script" uid="uid://dw7y50sipunj1" path="res://scripts/class/part/class_parts_arm.gd" id="8_s6fgp"]
+[ext_resource type="Script" uid="uid://u2fry4spgauv" path="res://scripts/class/part/class_parts_leg.gd" id="9_jdwcq"]
+[ext_resource type="Script" uid="uid://dayegkentyhnc" path="res://scripts/class/component/visualmodifier_component.gd" id="9_s6fgp"]
+[ext_resource type="Script" uid="uid://0833lxsrjnnk" path="res://scripts/class/part/class_parts_weapon.gd" id="10_2cqfy"]
+[ext_resource type="Script" uid="uid://ck25br38oyvpq" path="res://scripts/class/class_state_machine.gd" id="10_jdwcq"]
+[ext_resource type="Script" uid="uid://ck7p0o5xbpo3y" path="res://scripts/state/movement/biomech/biomech_movement_state_idle.gd" id="11_2cqfy"]
+[ext_resource type="Script" uid="uid://bhdkvxpb0k3al" path="res://scripts/class/part/class_parts_generator.gd" id="11_jdwcq"]
+[ext_resource type="Script" uid="uid://b4owdaoqdpx0u" path="res://scripts/class/part/class_parts_tcs.gd" id="12_2cqfy"]
+[ext_resource type="Script" uid="uid://brfmykmbs3dad" path="res://scripts/state/movement/biomech/biomech_movement_state_ground.gd" id="12_o47qb"]
+[ext_resource type="Script" uid="uid://dlul8bfn5exk5" path="res://scripts/class/part/class_parts_booster.gd" id="13_o47qb"]
+[ext_resource type="Script" uid="uid://dv0d204hwxs88" path="res://scripts/state/movement/biomech/biomech_movement_state_jump.gd" id="13_xdbqe"]
+[ext_resource type="Script" uid="uid://iv5pvv5q8kiw" path="res://scripts/state/movement/biomech/biomech_movement_state_air.gd" id="14_k0ffq"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sfp8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qwm7e"]
+radius = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_poj5f"]
+size = Vector3(0.5, 2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ksla3"]
+size = Vector3(0.25, 0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r4rq5"]
+size = Vector3(0.51, 0.5, 0.51)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2cqfy"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_o47qb"]
+graph_offset = Vector2(-171.57222, 50.682785)
+nodes/output/position = Vector2(480, 120)
+nodes/MoveState/node = SubResource("AnimationNodeStateMachine_2cqfy")
+nodes/MoveState/position = Vector2(-60, 120)
+node_connections = [&"output", 0, &"MoveState"]
+
+[sub_resource type="Curve" id="Curve_jdwcq"]
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0.5), 0.0, -1.0, 0, 1, Vector2(1, -0.5), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_4uluf"]
+script = ExtResource("6_4uluf")
+metadata/_custom_type_script = "uid://b2pilihbpg61t"
+
+[sub_resource type="Resource" id="Resource_o47qb"]
+script = ExtResource("7_ngc71")
+metadata/_custom_type_script = "uid://dq35mne6tldci"
+
+[sub_resource type="Resource" id="Resource_xdbqe"]
+script = ExtResource("8_s6fgp")
+metadata/_custom_type_script = "uid://dw7y50sipunj1"
+
+[sub_resource type="Resource" id="Resource_k0ffq"]
+script = ExtResource("9_jdwcq")
+metadata/_custom_type_script = "uid://u2fry4spgauv"
+
+[sub_resource type="Resource" id="Resource_lpnpy"]
+script = ExtResource("10_2cqfy")
+metadata/_custom_type_script = "uid://0833lxsrjnnk"
+
+[sub_resource type="Resource" id="Resource_b73y6"]
+script = ExtResource("11_jdwcq")
+metadata/_custom_type_script = "uid://bhdkvxpb0k3al"
+
+[sub_resource type="Resource" id="Resource_wbtuk"]
+script = ExtResource("12_2cqfy")
+metadata/_custom_type_script = "uid://b4owdaoqdpx0u"
+
+[sub_resource type="Resource" id="Resource_41cio"]
+script = ExtResource("13_o47qb")
+metadata/_custom_type_script = "uid://dlul8bfn5exk5"
+
+[node name="Biomech" type="CharacterBody3D" unique_id=111883241 node_paths=PackedStringArray("move", "attack", "damage", "input", "trace", "model_root", "camera_root", "collision", "spawner", "synchronizer")]
+collision_layer = 2
+slide_on_ceiling = false
+floor_snap_length = 0.5
+script = ExtResource("1_ofm7j")
+move = NodePath("BiomechMoveComponent")
+attack = NodePath("AttackComponent")
+damage = NodePath("DamageComponent")
+input = NodePath("InputComponent")
+trace = NodePath("TraceComponent")
+model_root = NodePath("Gant")
+camera_root = NodePath("CameraRoot")
+collision = NodePath("Collision")
+spawner = NodePath("MultiplayerSpawner")
+synchronizer = NodePath("MultiplayerSynchronizer")
+metadata/_custom_type_script = "uid://de05mnxjkq8ha"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1448770967]
+spawn_path = NodePath("..")
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="." unique_id=143082906]
+spawn_path = NodePath("../AttackComponent")
+script = ExtResource("2_pcwit")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1903585481]
+replication_config = SubResource("SceneReplicationConfig_7sfp8")
+
+[node name="HUD" type="Control" parent="." unique_id=1635399331 node_paths=PackedStringArray("pause")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_4uluf")
+pause = NodePath("Pause")
+metadata/_custom_type_script = "uid://b0b6s4d5sruwa"
+
+[node name="Pause" type="VBoxContainer" parent="HUD" unique_id=1972344394]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="HUD/Pause" unique_id=2037336398]
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="HUD/Pause" unique_id=2039403446]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="HUD/Pause" unique_id=1120126774]
+layout_mode = 2
+text = "Quit"
+
+[node name="CameraRoot" type="RemoteTransform3D" parent="." unique_id=1919924614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="CameraPivot" type="SpringArm3D" parent="." unique_id=993350120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+top_level = true
+shape = SubResource("SphereShape3D_qwm7e")
+spring_length = 7.0
+
+[node name="Camera" type="Camera3D" parent="CameraPivot" unique_id=1995853305]
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1872269822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_poj5f")
+
+[node name="CrouchCast" type="ShapeCast3D" parent="." unique_id=37816842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_ksla3")
+target_position = Vector3(0, 0.25, 0)
+max_results = 4
+
+[node name="StaircastUp" type="ShapeCast3D" parent="." unique_id=564180617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_r4rq5")
+target_position = Vector3(0, 0, 0)
+max_results = 4
+
+[node name="StaircastDown" type="RayCast3D" parent="." unique_id=1348544854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+target_position = Vector3(0, -0.4, 0)
+
+[node name="Gant" parent="." unique_id=1953671982 instance=ExtResource("4_2cqfy")]
+
+[node name="Skeleton3D" parent="Gant/Armature" parent_id_path=PackedInt32Array(1953671982, 894320356) index="0" unique_id=412789053]
+bones/9/rotation = Quaternion(-0.00067666767, 0.53927857, 0.8421079, -0.005701483)
+bones/14/rotation = Quaternion(0.16217983, 0.8760445, -0.099337526, -0.44314313)
+bones/30/rotation = Quaternion(0.9983908, 0.04836054, 0.020838406, 0.021045387)
+bones/31/rotation = Quaternion(0.10536246, 0.015205344, -0.016728347, 0.994177)
+bones/32/rotation = Quaternion(-0.0043484555, -0.014959892, 0.032835845, 0.9993394)
+bones/34/rotation = Quaternion(-0.25226644, 0.7202819, 0.44933534, -0.46438506)
+bones/38/rotation = Quaternion(0.9983908, -0.048360445, -0.02083836, 0.021044465)
+bones/39/rotation = Quaternion(0.105361596, -0.015205309, 0.016728455, 0.994177)
+bones/40/rotation = Quaternion(-0.0043491367, 0.014959915, -0.032835685, 0.9993394)
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=858527357]
+tree_root = SubResource("AnimationNodeBlendTree_o47qb")
+
+[node name="BiomechMoveComponent" type="Node" parent="." unique_id=323689375 node_paths=PackedStringArray("crouchcast", "staircast_up", "staircast_down")]
+script = ExtResource("4_jlhud")
+BOOST_SPEED_GAIN = 5.0
+BOOST_ACCEL_GAIN = 3.0
+BOOST_ACCEL_DECAY = 1.0
+BOOST_MAX_SPEED = 10.0
+BOOST_MAX_ACCEL = 35.0
+WALK_MAX_ACCEL = 20.0
+AIR_DECAY_MOD = 2.0
+BURST_INJECTION_TIME = 0.3
+max_ground_speed = 3.0
+max_air_speed = 3.0
+max_accel = 50.0
+max_air_accel = 50.0
+max_friction = 4.0
+jump_impulse = 6.0
+crouchcast = NodePath("../CrouchCast")
+staircast_up = NodePath("../StaircastUp")
+staircast_down = NodePath("../StaircastDown")
+metadata/_custom_type_script = "uid://cakpjspg2drgx"
+
+[node name="PartManagerComponent" type="Node" parent="." unique_id=933922474]
+script = ExtResource("5_pcwit")
+weight_speed_curve = SubResource("Curve_jdwcq")
+head = SubResource("Resource_4uluf")
+torso = SubResource("Resource_o47qb")
+arms = SubResource("Resource_xdbqe")
+legs = SubResource("Resource_k0ffq")
+left_arm_equip = SubResource("Resource_lpnpy")
+generator = SubResource("Resource_b73y6")
+tcs = SubResource("Resource_wbtuk")
+booster = SubResource("Resource_41cio")
+metadata/_custom_type_script = "uid://he2e0sckx5re"
+
+[node name="InputComponent" type="Node" parent="." unique_id=1881383040]
+script = ExtResource("5_aitkf")
+metadata/_custom_type_script = "uid://1sgbweejusa2"
+
+[node name="TraceComponent" type="Node" parent="." unique_id=51023125]
+script = ExtResource("6_6acau")
+metadata/_custom_type_script = "uid://k63xetoeertn"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=2128244568 node_paths=PackedStringArray("projectile_spawner")]
+script = ExtResource("7_ufvep")
+projectile_spawner = NodePath("../ProjectileSpawner")
+metadata/_custom_type_script = "uid://dm8ndbqjyrtuv"
+
+[node name="DamageComponent" type="Node" parent="." unique_id=226954338]
+script = ExtResource("8_ngc71")
+metadata/_custom_type_script = "uid://dsoospj4hh1rx"
+
+[node name="VisualModifierComponent" type="Node" parent="." unique_id=495745978 node_paths=PackedStringArray("target_meshes")]
+script = ExtResource("9_s6fgp")
+target_meshes = [null]
+metadata/_custom_type_script = "uid://dayegkentyhnc"
+
+[node name="BiomechMovementStateMachine" type="Node" parent="." unique_id=774118587 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("10_jdwcq")
+initial_state = NodePath("BiomechMovementStateIdle")
+metadata/_custom_type_script = "uid://ck25br38oyvpq"
+
+[node name="BiomechMovementStateIdle" type="Node" parent="BiomechMovementStateMachine" unique_id=539088181]
+script = ExtResource("11_2cqfy")
+metadata/_custom_type_script = "uid://ck7p0o5xbpo3y"
+
+[node name="BiomechMovementStateGround" type="Node" parent="BiomechMovementStateMachine" unique_id=1486730708]
+script = ExtResource("12_o47qb")
+metadata/_custom_type_script = "uid://brfmykmbs3dad"
+
+[node name="BiomechMovementStateJump" type="Node" parent="BiomechMovementStateMachine" unique_id=974716085]
+script = ExtResource("13_xdbqe")
+metadata/_custom_type_script = "uid://dv0d204hwxs88"
+
+[node name="BiomechMovementStateAir" type="Node" parent="BiomechMovementStateMachine" unique_id=1455897601]
+script = ExtResource("14_k0ffq")
+metadata/_custom_type_script = "uid://iv5pvv5q8kiw"
+
+[connection signal="pressed" from="HUD/Pause/Resume" to="HUD" method="_on_resume_pressed"]
+[connection signal="pressed" from="HUD/Pause/Settings" to="HUD" method="_on_settings_pressed"]
+[connection signal="pressed" from="HUD/Pause/Quit" to="HUD" method="_on_quit_pressed"]
+[connection signal="burst_thrusters_activated" from="BiomechMoveComponent" to="PartManagerComponent" method="_on_biomech_move_component_burst_thrusters_activated"]
+
+[editable path="Gant"]

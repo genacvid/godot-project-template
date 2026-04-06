@@ -43,6 +43,7 @@ func _physics_process(delta: float) -> void:
 	
 	## set movement states
 	entity.move.wishjump = Input.is_action_just_pressed(&"jump") if not auto_jump else Input.is_action_pressed(&"jump")
-	entity.move.wishcrouch = Input.is_action_pressed(&"crouch")
-	entity.move.wishrun = Input.is_action_just_pressed(&"run")
-	entity.attack.wishattack = Input.is_action_pressed("attack")
+	if entity is Biomech:
+		var mech_move = entity.move as BiomechMoveComponent
+		mech_move.wishburst = Input.is_action_just_pressed("burst")
+	entity.attack.wishattack = Input.is_action_pressed("attack_left")
